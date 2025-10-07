@@ -7,9 +7,9 @@ interface PCOSVisualizerProps {
 }
 
 const PCOSVisualizer = ({ metrics, type }: PCOSVisualizerProps) => {
-  const size = 400;
+  const size = 480;
   const center = size / 2;
-  const maxRadius = 160;
+  const maxRadius = 140;
   
   // Calculate positions for the three axes (120 degrees apart)
   const angles = [90, 210, 330]; // degrees
@@ -43,38 +43,65 @@ const PCOSVisualizer = ({ metrics, type }: PCOSVisualizerProps) => {
     });
   }, [metrics]);
 
-  // Create triangle path
-  const trianglePath = points.length === 3 
-    ? `M ${points[0].x} ${points[0].y} L ${points[1].x} ${points[1].y} L ${points[2].x} ${points[2].y} Z`
-    : '';
+  // Create blob path using bezier curves for organic liquid look
+  const blobPath = useMemo(() => {
+    if (points.length !== 3) return '';
+    
+    // Calculate control points for smooth curves between each pair of points
+    const getControlPoints = (p1: {x: number, y: number}, p2: {x: number, y: number}) => {
+      const midX = (p1.x + p2.x) / 2;
+      const midY = (p1.y + p2.y) / 2;
+      // Create control point slightly towards center for organic curve
+      const dx = midX - center;
+      const dy = midY - center;
+      const distance = Math.sqrt(dx * dx + dy * dy);
+      const curveFactor = 0.15; // Adjust for more/less curvature
+      return {
+        x: midX - (dx / distance) * distance * curveFactor,
+        y: midY - (dy / distance) * distance * curveFactor
+      };
+    };
+
+    const cp1 = getControlPoints(points[0], points[1]);
+    const cp2 = getControlPoints(points[1], points[2]);
+    const cp3 = getControlPoints(points[2], points[0]);
+
+    return `
+      M ${points[0].x} ${points[0].y}
+      Q ${cp1.x} ${cp1.y} ${points[1].x} ${points[1].y}
+      Q ${cp2.x} ${cp2.y} ${points[2].x} ${points[2].y}
+      Q ${cp3.x} ${cp3.y} ${points[0].x} ${points[0].y}
+      Z
+    `;
+  }, [points]);
 
   // Check if all values are 0
   const showQuestionMark = metrics.androgenExcess === 0 && 
                           metrics.polycysticOvaries === 0 && 
                           metrics.ovulatoryDysfunction === 0;
 
-  // Colors based on type
+  // Colors based on type - using brand colors
   const getColors = () => {
     const colors = {
       'unclear': { fill: 'hsl(var(--muted))', stroke: 'hsl(var(--border))' },
-      'type-a': { fill: 'hsl(280 65% 60% / 0.3)', stroke: 'hsl(280 65% 60%)' },
-      'type-b': { fill: 'hsl(340 75% 55% / 0.3)', stroke: 'hsl(340 75% 55%)' },
-      'type-c': { fill: 'hsl(200 70% 50% / 0.3)', stroke: 'hsl(200 70% 50%)' },
-      'type-d': { fill: 'hsl(160 60% 50% / 0.3)', stroke: 'hsl(160 60% 50%)' },
-      'reproductive': { fill: 'hsl(340 75% 55% / 0.3)', stroke: 'hsl(340 75% 55%)' },
-      'metabolic': { fill: 'hsl(45 85% 55% / 0.3)', stroke: 'hsl(45 85% 55%)' },
-      'mixed': { fill: 'hsl(280 65% 60% / 0.3)', stroke: 'hsl(280 65% 60%)' }
+      'type-a': { fill: 'hsl(var(--violet) / 0.3)', stroke: 'hsl(var(--violet))' },
+      'type-b': { fill: 'hsl(var(--pink) / 0.3)', stroke: 'hsl(var(--pink))' },
+      'type-c': { fill: 'hsl(var(--turquoise) / 0.3)', stroke: 'hsl(var(--turquoise))' },
+      'type-d': { fill: 'hsl(var(--turquoise-light) / 0.3)', stroke: 'hsl(var(--turquoise))' },
+      'reproductive': { fill: 'hsl(var(--pink) / 0.3)', stroke: 'hsl(var(--pink))' },
+      'metabolic': { fill: 'hsl(var(--magenta) / 0.3)', stroke: 'hsl(var(--magenta))' },
+      'mixed': { fill: 'hsl(var(--violet) / 0.3)', stroke: 'hsl(var(--violet))' }
     };
     return colors[type] || colors['unclear'];
   };
 
   const colors = getColors();
 
-  // Labels for the three axes
+  // Labels for the three axes - with line breaks for better spacing
   const labels = [
-    { text: 'Androgen Excess', angle: 90 },
-    { text: 'Polycystic Ovaries', angle: 210 },
-    { text: 'Ovulatory Dysfunction', angle: 330 }
+    { text: ['Androgen', 'Excess'], angle: 90 },
+    { text: ['Polycystic', 'Ovaries'], angle: 210 },
+    { text: ['Ovulatory', 'Dysfunction'], angle: 330 }
   ];
 
   return (
@@ -95,10 +122,10 @@ const PCOSVisualizer = ({ metrics, type }: PCOSVisualizerProps) => {
         </filter>
       </defs>
 
-      {/* Background circles (Low, Medium, High) */}
-      <circle cx={center} cy={center} r={maxRadius * 0.33} fill="none" stroke="hsl(var(--border))" strokeWidth="1" opacity="0.3" />
-      <circle cx={center} cy={center} r={maxRadius * 0.66} fill="none" stroke="hsl(var(--border))" strokeWidth="1" opacity="0.3" />
-      <circle cx={center} cy={center} r={maxRadius} fill="none" stroke="hsl(var(--border))" strokeWidth="2" opacity="0.5" />
+      {/* Background circles with transparency to show intensity levels */}
+      <circle cx={center} cy={center} r={maxRadius * 0.33} fill="hsl(var(--turquoise) / 0.05)" stroke="hsl(var(--border))" strokeWidth="1" opacity="0.4" />
+      <circle cx={center} cy={center} r={maxRadius * 0.66} fill="hsl(var(--turquoise) / 0.1)" stroke="hsl(var(--border))" strokeWidth="1" opacity="0.4" />
+      <circle cx={center} cy={center} r={maxRadius} fill="hsl(var(--turquoise) / 0.15)" stroke="hsl(var(--border))" strokeWidth="1.5" opacity="0.5" />
 
       {/* Axis lines */}
       {angles.map((angle, index) => {
@@ -119,17 +146,19 @@ const PCOSVisualizer = ({ metrics, type }: PCOSVisualizerProps) => {
         );
       })}
 
-      {/* Data triangle with spring animation */}
+      {/* Data blob with spring animation - liquid glass aesthetic */}
       {!showQuestionMark && (
         <>
           <path
-            d={trianglePath}
+            d={blobPath}
             fill={colors.fill}
             stroke={colors.stroke}
             strokeWidth="3"
+            strokeLinecap="round"
+            strokeLinejoin="round"
             filter="url(#glow)"
             style={{
-              transition: 'd 0.6s cubic-bezier(0.34, 1.56, 0.64, 1)'
+              transition: 'd 0.8s cubic-bezier(0.34, 1.56, 0.64, 1)'
             }}
           />
           
@@ -139,12 +168,12 @@ const PCOSVisualizer = ({ metrics, type }: PCOSVisualizerProps) => {
               key={index}
               cx={point.x}
               cy={point.y}
-              r="6"
+              r="7"
               fill={colors.stroke}
               stroke="hsl(var(--background))"
-              strokeWidth="2"
+              strokeWidth="3"
               style={{
-                transition: 'cx 0.6s cubic-bezier(0.34, 1.56, 0.64, 1), cy 0.6s cubic-bezier(0.34, 1.56, 0.64, 1)'
+                transition: 'cx 0.8s cubic-bezier(0.34, 1.56, 0.64, 1), cy 0.8s cubic-bezier(0.34, 1.56, 0.64, 1)'
               }}
             />
           ))}
@@ -165,10 +194,10 @@ const PCOSVisualizer = ({ metrics, type }: PCOSVisualizerProps) => {
         </text>
       )}
 
-      {/* Labels */}
+      {/* Labels - Multi-line for better fit */}
       {labels.map((label, index) => {
         const rad = (label.angle * Math.PI) / 180;
-        const labelRadius = maxRadius + 40;
+        const labelRadius = maxRadius + 50;
         const x = center + labelRadius * Math.cos(rad);
         const y = center + labelRadius * Math.sin(rad);
         
@@ -177,22 +206,24 @@ const PCOSVisualizer = ({ metrics, type }: PCOSVisualizerProps) => {
             key={index}
             x={x}
             y={y}
-            fontSize="13"
+            fontSize="14"
             fill="hsl(var(--foreground))"
             textAnchor="middle"
             dominantBaseline="middle"
             fontWeight="600"
-            style={{ maxWidth: '100px' }}
           >
-            {label.text}
+            {label.text.map((line, lineIndex) => (
+              <tspan
+                key={lineIndex}
+                x={x}
+                dy={lineIndex === 0 ? 0 : '1.2em'}
+              >
+                {line}
+              </tspan>
+            ))}
           </text>
         );
       })}
-
-      {/* Ring labels */}
-      <text x={center + maxRadius * 0.33 + 5} y={center - 5} fontSize="10" fill="hsl(var(--muted-foreground))" fontWeight="500">Low</text>
-      <text x={center + maxRadius * 0.66 + 5} y={center - 5} fontSize="10" fill="hsl(var(--muted-foreground))" fontWeight="500">Med</text>
-      <text x={center + maxRadius + 5} y={center - 5} fontSize="10" fill="hsl(var(--muted-foreground))" fontWeight="500">High</text>
     </svg>
   );
 };

@@ -8,51 +8,55 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* Looop Brand Colors - Liquid Glass Aesthetic */
+    --background: 174 58% 95%;
+    --foreground: 217 60% 20%;
 
     --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card-foreground: 217 60% 20%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover-foreground: 217 60% 20%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    /* Turquoise Primary */
+    --primary: 173 58% 55%;
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 173 58% 79%;
+    --secondary-foreground: 217 60% 20%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: 173 30% 90%;
+    --muted-foreground: 217 18% 47%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --accent: 173 58% 79%;
+    --accent-foreground: 217 60% 20%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    /* Error Red */
+    --destructive: 356 67% 59%;
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --border: 173 58% 85%;
+    --input: 173 30% 90%;
+    --ring: 173 58% 55%;
 
-    --radius: 0.5rem;
+    --radius: 1rem;
+
+    /* PCOS Type Colors */
+    --turquoise: 173 58% 55%;
+    --turquoise-light: 173 58% 79%;
+    --pink: 356 67% 59%;
+    --pink-light: 356 67% 81%;
+    --violet: 280 65% 60%;
+    --magenta: 325 65% 55%;
 
     --sidebar-background: 0 0% 98%;
-
-    --sidebar-foreground: 240 5.3% 26.1%;
-
-    --sidebar-primary: 240 5.9% 10%;
-
-    --sidebar-primary-foreground: 0 0% 98%;
-
-    --sidebar-accent: 240 4.8% 95.9%;
-
-    --sidebar-accent-foreground: 240 5.9% 10%;
-
-    --sidebar-border: 220 13% 91%;
-
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --sidebar-foreground: 217 60% 20%;
+    --sidebar-primary: 173 58% 55%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 173 58% 95%;
+    --sidebar-accent-foreground: 217 60% 20%;
+    --sidebar-border: 173 58% 85%;
+    --sidebar-ring: 173 58% 55%;
   }
 
   .dark {

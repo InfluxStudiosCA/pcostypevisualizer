@@ -28,10 +28,10 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-background to-secondary/20 py-12 px-4">
+    <div className="min-h-screen bg-background py-12 px-4">
       <div className="container max-w-6xl mx-auto">
         <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold mb-3 bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent">
+          <h1 className="text-4xl font-bold mb-3 text-foreground">
             PCOS Phenotype Visualizer
           </h1>
           <p className="text-muted-foreground text-lg">
@@ -41,13 +41,13 @@ const Index = () => {
 
         <div className="grid lg:grid-cols-2 gap-8 mb-8">
           {/* Visualization */}
-          <Card className="p-8 bg-card/50 backdrop-blur">
+          <Card className="p-8 bg-card border-2 border-primary/20 shadow-lg shadow-primary/5">
             <div className="mb-6">
               <h2 className="text-2xl font-semibold mb-2">Your PCOS Phenotype</h2>
               <p className="text-sm text-muted-foreground mb-4">
                 Based on self-reported symptom data
               </p>
-              <div className="p-4 rounded-lg bg-primary/10 border-2 border-primary/30">
+              <div className="p-4 rounded-2xl bg-primary/10 border-2 border-primary/30">
                 <p className="font-semibold text-primary">{typeLabel}</p>
               </div>
             </div>
@@ -57,7 +57,7 @@ const Index = () => {
 
           {/* Controls */}
           <div className="space-y-6">
-            <Card className="p-6 bg-card/50 backdrop-blur">
+            <Card className="p-6 bg-card border-2 border-primary/20 shadow-lg shadow-primary/5">
               <h3 className="text-xl font-semibold mb-4">Adjust Metrics</h3>
               <p className="text-sm text-muted-foreground mb-6">
                 Move sliders to see how the visualization changes
@@ -132,7 +132,7 @@ const Index = () => {
               </div>
             </Card>
 
-            <Card className="p-6 bg-card/50 backdrop-blur">
+            <Card className="p-6 bg-card border-2 border-primary/20 shadow-lg shadow-primary/5">
               <h3 className="text-xl font-semibold mb-4">Preset Examples</h3>
               <p className="text-sm text-muted-foreground mb-4">
                 Click to load example phenotypes
@@ -168,11 +168,11 @@ const Index = () => {
           </div>
         </div>
 
-        <Card className="p-6 bg-card/50 backdrop-blur">
+        <Card className="p-6 bg-card border-2 border-primary/20 shadow-lg shadow-primary/5">
           <h3 className="text-lg font-semibold mb-3">How It Works</h3>
           <ul className="space-y-2 text-sm text-muted-foreground">
-            <li>• <strong>Three rings:</strong> Inner (low), middle (medium), outer (high) represent symptom severity</li>
-            <li>• <strong>Triangle shape:</strong> Dynamically adjusts based on the three metrics (AE, PCO, OD)</li>
+            <li>• <strong>Three rings:</strong> Increasing color transparency shows intensity levels (light to dark)</li>
+            <li>• <strong>Blob shape:</strong> Organic liquid glass aesthetic that dynamically adjusts based on metrics</li>
             <li>• <strong>Spring animation:</strong> Smooth, elastic transitions when values change</li>
             <li>• <strong>Question mark:</strong> Displayed when all values are 0 (insufficient data)</li>
             <li>• <strong>Type calculation:</strong> Automatically determines PCOS type based on Rotterdam criteria</li>
