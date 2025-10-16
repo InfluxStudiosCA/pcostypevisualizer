@@ -150,11 +150,11 @@ const PCOSVisualizer = ({ metrics, type }: PCOSVisualizerProps) => {
 
   const colors = getColors();
 
-  // Labels for the three axes - with line breaks for better spacing
+  // Labels for the three axes - positioned outside
   const labels = [
-    { text: ['Androgen', 'Excess'], angle: 90 },
-    { text: ['Polycystic', 'Ovaries'], angle: 210 },
-    { text: ['Ovulatory', 'Dysfunction'], angle: 330 }
+    { abbr: 'AE', text: ['Androgen', 'Excess'], angle: 90 },
+    { abbr: 'PCO', text: ['Polycystic', 'Ovaries'], angle: 330 },
+    { abbr: 'OD', text: ['Ovarian', 'Dysfunction'], angle: 210 }
   ];
 
   return (
@@ -188,9 +188,9 @@ const PCOSVisualizer = ({ metrics, type }: PCOSVisualizerProps) => {
           y1={center}
           x2={point.x}
           y2={point.y}
-          stroke={colors.accent}
-          strokeWidth="2"
-          opacity="0.5"
+          stroke="hsl(var(--muted-foreground))"
+          strokeWidth="1.5"
+          opacity="0.3"
           style={{
             transition: 'x2 0.8s cubic-bezier(0.34, 1.56, 0.64, 1), y2 0.8s cubic-bezier(0.34, 1.56, 0.64, 1)'
           }}
@@ -286,34 +286,51 @@ const PCOSVisualizer = ({ metrics, type }: PCOSVisualizerProps) => {
         </text>
       )}
 
-      {/* Labels - Multi-line for better fit */}
+      {/* Labels - Positioned outside the chart */}
       {labels.map((label, index) => {
         const rad = (label.angle * Math.PI) / 180;
-        const labelRadius = maxRadius + 50;
-        const x = center + labelRadius * Math.cos(rad);
-        const y = center + labelRadius * Math.sin(rad);
+        const abbrRadius = maxRadius + 30;
+        const textRadius = maxRadius + 60;
+        const abbrX = center + abbrRadius * Math.cos(rad);
+        const abbrY = center + abbrRadius * Math.sin(rad);
+        const textX = center + textRadius * Math.cos(rad);
+        const textY = center + textRadius * Math.sin(rad);
         
         return (
-          <text
-            key={index}
-            x={x}
-            y={y}
-            fontSize="14"
-            fill={colors.accent}
-            textAnchor="middle"
-            dominantBaseline="middle"
-            fontWeight="600"
-          >
-            {label.text.map((line, lineIndex) => (
-              <tspan
-                key={lineIndex}
-                x={x}
-                dy={lineIndex === 0 ? 0 : '1.2em'}
-              >
-                {line}
-              </tspan>
-            ))}
-          </text>
+          <g key={index}>
+            {/* Abbreviation (larger, colored) */}
+            <text
+              x={abbrX}
+              y={abbrY}
+              fontSize="16"
+              fill={colors.accent}
+              textAnchor="middle"
+              dominantBaseline="middle"
+              fontWeight="700"
+            >
+              {label.abbr}
+            </text>
+            {/* Full text (smaller, below abbreviation) */}
+            <text
+              x={textX}
+              y={textY}
+              fontSize="12"
+              fill={colors.accent}
+              textAnchor="middle"
+              dominantBaseline="middle"
+              fontWeight="500"
+            >
+              {label.text.map((line, lineIndex) => (
+                <tspan
+                  key={lineIndex}
+                  x={textX}
+                  dy={lineIndex === 0 ? 0 : '1.1em'}
+                >
+                  {line}
+                </tspan>
+              ))}
+            </text>
+          </g>
         );
       })}
     </svg>
