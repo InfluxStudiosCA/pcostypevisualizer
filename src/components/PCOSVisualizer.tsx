@@ -93,17 +93,17 @@ const PCOSVisualizer = ({ metrics, type }: PCOSVisualizerProps) => {
                           metrics.polycysticOvaries === 0 && 
                           metrics.ovulatoryDysfunction === 0;
 
-  // Colors based on type - using brand colors
+  // Colors based on type - using consistent brand turquoise
   const getColors = () => {
     const colors = {
       'unclear': { fill: 'hsl(var(--muted))', stroke: 'hsl(var(--border))' },
-      'type-a': { fill: 'hsl(var(--violet) / 0.3)', stroke: 'hsl(var(--violet))' },
-      'type-b': { fill: 'hsl(var(--pink) / 0.3)', stroke: 'hsl(var(--pink))' },
-      'type-c': { fill: 'hsl(var(--turquoise) / 0.3)', stroke: 'hsl(var(--turquoise))' },
-      'type-d': { fill: 'hsl(var(--turquoise-light) / 0.3)', stroke: 'hsl(var(--turquoise))' },
-      'reproductive': { fill: 'hsl(var(--pink) / 0.3)', stroke: 'hsl(var(--pink))' },
-      'metabolic': { fill: 'hsl(var(--magenta) / 0.3)', stroke: 'hsl(var(--magenta))' },
-      'mixed': { fill: 'hsl(var(--violet) / 0.3)', stroke: 'hsl(var(--violet))' }
+      'type-a': { fill: 'hsl(var(--turquoise) / 0.3)', stroke: 'hsl(var(--violet))' },
+      'type-b': { fill: 'hsl(var(--turquoise) / 0.3)', stroke: 'hsl(var(--violet))' },
+      'type-c': { fill: 'hsl(var(--turquoise) / 0.3)', stroke: 'hsl(var(--violet))' },
+      'type-d': { fill: 'hsl(var(--turquoise) / 0.3)', stroke: 'hsl(var(--violet))' },
+      'reproductive': { fill: 'hsl(var(--turquoise) / 0.3)', stroke: 'hsl(var(--violet))' },
+      'metabolic': { fill: 'hsl(var(--turquoise) / 0.3)', stroke: 'hsl(var(--violet))' },
+      'mixed': { fill: 'hsl(var(--turquoise) / 0.3)', stroke: 'hsl(var(--violet))' }
     };
     return colors[type] || colors['unclear'];
   };
