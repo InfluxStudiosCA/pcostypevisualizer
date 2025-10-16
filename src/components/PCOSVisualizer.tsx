@@ -47,24 +47,37 @@ const PCOSVisualizer = ({ metrics, type }: PCOSVisualizerProps) => {
   const blobPath = useMemo(() => {
     if (points.length !== 3) return '';
     
-    // Calculate control points for smooth curves between each pair of points
-    const getControlPoints = (p1: {x: number, y: number}, p2: {x: number, y: number}) => {
+    // Calculate control points for smooth, organic curves between each pair of points
+    const getControlPoints = (p1: {x: number, y: number}, p2: {x: number, y: number}, pPrev: {x: number, y: number}) => {
       const midX = (p1.x + p2.x) / 2;
       const midY = (p1.y + p2.y) / 2;
-      // Create control point slightly towards center for organic curve
-      const dx = midX - center;
-      const dy = midY - center;
-      const distance = Math.sqrt(dx * dx + dy * dy);
-      const curveFactor = 0.15; // Adjust for more/less curvature
+      
+      // Calculate perpendicular vector for bulging outward
+      const dx = p2.x - p1.x;
+      const dy = p2.y - p1.y;
+      const perpX = -dy;
+      const perpY = dx;
+      const perpLength = Math.sqrt(perpX * perpX + perpY * perpY);
+      
+      // Determine if we should bulge outward or inward
+      const centerDx = midX - center;
+      const centerDy = midY - center;
+      const dotProduct = (perpX * centerDx + perpY * centerDy);
+      const direction = dotProduct > 0 ? 1 : -1;
+      
+      // Create bulge factor based on distance from center
+      const distanceFromCenter = Math.sqrt(centerDx * centerDx + centerDy * centerDy);
+      const bulgeFactor = 0.25 * (distanceFromCenter / maxRadius); // More bulge when further from center
+      
       return {
-        x: midX - (dx / distance) * distance * curveFactor,
-        y: midY - (dy / distance) * distance * curveFactor
+        x: midX + direction * (perpX / perpLength) * perpLength * bulgeFactor,
+        y: midY + direction * (perpY / perpLength) * perpLength * bulgeFactor
       };
     };
 
-    const cp1 = getControlPoints(points[0], points[1]);
-    const cp2 = getControlPoints(points[1], points[2]);
-    const cp3 = getControlPoints(points[2], points[0]);
+    const cp1 = getControlPoints(points[0], points[1], points[2]);
+    const cp2 = getControlPoints(points[1], points[2], points[0]);
+    const cp3 = getControlPoints(points[2], points[0], points[1]);
 
     return `
       M ${points[0].x} ${points[0].y}
@@ -127,24 +140,22 @@ const PCOSVisualizer = ({ metrics, type }: PCOSVisualizerProps) => {
       <circle cx={center} cy={center} r={maxRadius * 0.66} fill="hsl(var(--turquoise) / 0.1)" stroke="hsl(var(--border))" strokeWidth="1" opacity="0.4" />
       <circle cx={center} cy={center} r={maxRadius} fill="hsl(var(--turquoise) / 0.15)" stroke="hsl(var(--border))" strokeWidth="1.5" opacity="0.5" />
 
-      {/* Axis lines */}
-      {angles.map((angle, index) => {
-        const rad = (angle * Math.PI) / 180;
-        const endX = center + maxRadius * Math.cos(rad);
-        const endY = center + maxRadius * Math.sin(rad);
-        return (
-          <line
-            key={index}
-            x1={center}
-            y1={center}
-            x2={endX}
-            y2={endY}
-            stroke="hsl(var(--border))"
-            strokeWidth="1"
-            opacity="0.3"
-          />
-        );
-      })}
+      {/* Lines from center to data points */}
+      {!showQuestionMark && points.map((point, index) => (
+        <line
+          key={index}
+          x1={center}
+          y1={center}
+          x2={point.x}
+          y2={point.y}
+          stroke={colors.stroke}
+          strokeWidth="2"
+          opacity="0.4"
+          style={{
+            transition: 'x2 0.8s cubic-bezier(0.34, 1.56, 0.64, 1), y2 0.8s cubic-bezier(0.34, 1.56, 0.64, 1)'
+          }}
+        />
+      ))}
 
       {/* Data blob with spring animation - liquid glass aesthetic */}
       {!showQuestionMark && (
@@ -168,7 +179,7 @@ const PCOSVisualizer = ({ metrics, type }: PCOSVisualizerProps) => {
               key={index}
               cx={point.x}
               cy={point.y}
-              r="7"
+              r="8"
               fill={colors.stroke}
               stroke="hsl(var(--background))"
               strokeWidth="3"
