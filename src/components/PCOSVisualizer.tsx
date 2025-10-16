@@ -237,14 +237,14 @@ const PCOSVisualizer = ({ metrics, type }: PCOSVisualizerProps) => {
           <circle
             cx={center}
             cy={center}
-            r="50"
+            r="40"
             fill={colors.center}
             filter="url(#glow)"
           />
           <text
             x={center}
-            y={center - 5}
-            fontSize="16"
+            y={center - 4}
+            fontSize="14"
             fill="white"
             textAnchor="middle"
             dominantBaseline="middle"
@@ -254,8 +254,8 @@ const PCOSVisualizer = ({ metrics, type }: PCOSVisualizerProps) => {
           </text>
           <text
             x={center}
-            y={center + 15}
-            fontSize="28"
+            y={center + 13}
+            fontSize="24"
             fill="white"
             textAnchor="middle"
             dominantBaseline="middle"
@@ -289,8 +289,8 @@ const PCOSVisualizer = ({ metrics, type }: PCOSVisualizerProps) => {
       {/* Labels - Positioned outside the chart */}
       {labels.map((label, index) => {
         const rad = (label.angle * Math.PI) / 180;
-        const abbrRadius = maxRadius + 30;
-        const textRadius = maxRadius + 60;
+        const abbrRadius = maxRadius + 35;
+        const textRadius = maxRadius + 70;
         const abbrX = center + abbrRadius * Math.cos(rad);
         const abbrY = center + abbrRadius * Math.sin(rad);
         const textX = center + textRadius * Math.cos(rad);
@@ -302,7 +302,7 @@ const PCOSVisualizer = ({ metrics, type }: PCOSVisualizerProps) => {
             <text
               x={abbrX}
               y={abbrY}
-              fontSize="16"
+              fontSize="15"
               fill={colors.accent}
               textAnchor="middle"
               dominantBaseline="middle"
@@ -314,7 +314,7 @@ const PCOSVisualizer = ({ metrics, type }: PCOSVisualizerProps) => {
             <text
               x={textX}
               y={textY}
-              fontSize="12"
+              fontSize="11"
               fill={colors.accent}
               textAnchor="middle"
               dominantBaseline="middle"
@@ -324,7 +324,7 @@ const PCOSVisualizer = ({ metrics, type }: PCOSVisualizerProps) => {
                 <tspan
                   key={lineIndex}
                   x={textX}
-                  dy={lineIndex === 0 ? 0 : '1.1em'}
+                  dy={lineIndex === 0 ? 0 : '1.2em'}
                 >
                   {line}
                 </tspan>
