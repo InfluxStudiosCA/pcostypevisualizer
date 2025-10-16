@@ -237,25 +237,25 @@ const PCOSVisualizer = ({ metrics, type }: PCOSVisualizerProps) => {
           <circle
             cx={center}
             cy={center}
-            r="60"
+            r="50"
             fill={colors.center}
             filter="url(#glow)"
           />
           <text
             x={center}
-            y={center - 8}
-            fontSize="18"
+            y={center - 5}
+            fontSize="16"
             fill="white"
             textAnchor="middle"
             dominantBaseline="middle"
-            fontWeight="600"
+            fontWeight="500"
           >
             Type
           </text>
           <text
             x={center}
             y={center + 15}
-            fontSize="32"
+            fontSize="28"
             fill="white"
             textAnchor="middle"
             dominantBaseline="middle"
