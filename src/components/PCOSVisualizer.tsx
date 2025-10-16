@@ -93,17 +93,57 @@ const PCOSVisualizer = ({ metrics, type }: PCOSVisualizerProps) => {
                           metrics.polycysticOvaries === 0 && 
                           metrics.ovulatoryDysfunction === 0;
 
-  // Colors based on type - using consistent brand turquoise
+  // Colors - vibrant turquoise blob with magenta accents
   const getColors = () => {
     const colors = {
-      'unclear': { fill: 'hsl(var(--muted))', stroke: 'hsl(var(--border))' },
-      'type-a': { fill: 'hsl(var(--turquoise) / 0.3)', stroke: 'hsl(var(--violet))' },
-      'type-b': { fill: 'hsl(var(--turquoise) / 0.3)', stroke: 'hsl(var(--violet))' },
-      'type-c': { fill: 'hsl(var(--turquoise) / 0.3)', stroke: 'hsl(var(--violet))' },
-      'type-d': { fill: 'hsl(var(--turquoise) / 0.3)', stroke: 'hsl(var(--violet))' },
-      'reproductive': { fill: 'hsl(var(--turquoise) / 0.3)', stroke: 'hsl(var(--violet))' },
-      'metabolic': { fill: 'hsl(var(--turquoise) / 0.3)', stroke: 'hsl(var(--violet))' },
-      'mixed': { fill: 'hsl(var(--turquoise) / 0.3)', stroke: 'hsl(var(--violet))' }
+      'unclear': { 
+        fill: 'hsl(var(--muted))', 
+        stroke: 'hsl(var(--border))',
+        accent: 'hsl(var(--muted-foreground))',
+        center: 'hsl(var(--muted-foreground))'
+      },
+      'type-a': { 
+        fill: 'hsl(var(--turquoise) / 0.4)', 
+        stroke: 'hsl(var(--turquoise))',
+        accent: 'hsl(var(--magenta))',
+        center: 'hsl(var(--magenta))'
+      },
+      'type-b': { 
+        fill: 'hsl(var(--turquoise) / 0.4)', 
+        stroke: 'hsl(var(--turquoise))',
+        accent: 'hsl(var(--magenta))',
+        center: 'hsl(var(--magenta))'
+      },
+      'type-c': { 
+        fill: 'hsl(var(--turquoise) / 0.4)', 
+        stroke: 'hsl(var(--turquoise))',
+        accent: 'hsl(var(--magenta))',
+        center: 'hsl(var(--magenta))'
+      },
+      'type-d': { 
+        fill: 'hsl(var(--turquoise) / 0.4)', 
+        stroke: 'hsl(var(--turquoise))',
+        accent: 'hsl(var(--magenta))',
+        center: 'hsl(var(--magenta))'
+      },
+      'reproductive': { 
+        fill: 'hsl(var(--turquoise) / 0.4)', 
+        stroke: 'hsl(var(--turquoise))',
+        accent: 'hsl(var(--magenta))',
+        center: 'hsl(var(--magenta))'
+      },
+      'metabolic': { 
+        fill: 'hsl(var(--turquoise) / 0.4)', 
+        stroke: 'hsl(var(--turquoise))',
+        accent: 'hsl(var(--magenta))',
+        center: 'hsl(var(--magenta))'
+      },
+      'mixed': { 
+        fill: 'hsl(var(--turquoise) / 0.4)', 
+        stroke: 'hsl(var(--turquoise))',
+        accent: 'hsl(var(--magenta))',
+        center: 'hsl(var(--magenta))'
+      }
     };
     return colors[type] || colors['unclear'];
   };
@@ -148,9 +188,9 @@ const PCOSVisualizer = ({ metrics, type }: PCOSVisualizerProps) => {
           y1={center}
           x2={point.x}
           y2={point.y}
-          stroke={colors.stroke}
+          stroke={colors.accent}
           strokeWidth="2"
-          opacity="0.4"
+          opacity="0.5"
           style={{
             transition: 'x2 0.8s cubic-bezier(0.34, 1.56, 0.64, 1), y2 0.8s cubic-bezier(0.34, 1.56, 0.64, 1)'
           }}
@@ -164,7 +204,7 @@ const PCOSVisualizer = ({ metrics, type }: PCOSVisualizerProps) => {
             d={blobPath}
             fill={colors.fill}
             stroke={colors.stroke}
-            strokeWidth="3"
+            strokeWidth="2"
             strokeLinecap="round"
             strokeLinejoin="round"
             filter="url(#glow)"
@@ -180,7 +220,7 @@ const PCOSVisualizer = ({ metrics, type }: PCOSVisualizerProps) => {
               cx={point.x}
               cy={point.y}
               r="8"
-              fill={colors.stroke}
+              fill={colors.accent}
               stroke="hsl(var(--background))"
               strokeWidth="3"
               style={{
@@ -188,6 +228,47 @@ const PCOSVisualizer = ({ metrics, type }: PCOSVisualizerProps) => {
               }}
             />
           ))}
+        </>
+      )}
+
+      {/* Center circle with type label */}
+      {!showQuestionMark && (
+        <>
+          <circle
+            cx={center}
+            cy={center}
+            r="60"
+            fill={colors.center}
+            filter="url(#glow)"
+          />
+          <text
+            x={center}
+            y={center - 8}
+            fontSize="18"
+            fill="white"
+            textAnchor="middle"
+            dominantBaseline="middle"
+            fontWeight="600"
+          >
+            Type
+          </text>
+          <text
+            x={center}
+            y={center + 15}
+            fontSize="32"
+            fill="white"
+            textAnchor="middle"
+            dominantBaseline="middle"
+            fontWeight="700"
+          >
+            {type === 'type-a' ? 'A' : 
+             type === 'type-b' ? 'B' : 
+             type === 'type-c' ? 'C' : 
+             type === 'type-d' ? 'D' : 
+             type === 'reproductive' ? 'R' :
+             type === 'metabolic' ? 'M' :
+             type === 'mixed' ? 'X' : '?'}
+          </text>
         </>
       )}
 
@@ -218,7 +299,7 @@ const PCOSVisualizer = ({ metrics, type }: PCOSVisualizerProps) => {
             x={x}
             y={y}
             fontSize="14"
-            fill="hsl(var(--foreground))"
+            fill={colors.accent}
             textAnchor="middle"
             dominantBaseline="middle"
             fontWeight="600"
