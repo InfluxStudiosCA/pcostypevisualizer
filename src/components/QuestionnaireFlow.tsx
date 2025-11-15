@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { ChevronLeft, ChevronRight, RotateCcw } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
@@ -58,6 +58,19 @@ const QuestionnaireFlow = () => {
     }
   };
 
+  const handleReset = () => {
+    const initialAnswers: Answers = {};
+    questions.forEach(q => {
+      if (q.type === 'toggle') {
+        initialAnswers[q.id] = 'unknown';
+      } else if (q.type === 'dropdown') {
+        initialAnswers[q.id] = '';
+      }
+    });
+    setAnswers(initialAnswers);
+    setCurrentStep(0);
+  };
+
   const progressPercent = ((currentStep + 1) / categories.length) * 100;
 
   return (
@@ -66,8 +79,18 @@ const QuestionnaireFlow = () => {
         <div className="grid lg:grid-cols-2 gap-8">
           {/* Left Side - Questions */}
           <div className="space-y-6">
-            <div className="flex items-center justify-center mb-8">
+            <div className="flex items-center justify-between mb-8">
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={handleReset}
+                className="gap-2"
+              >
+                <RotateCcw className="w-4 h-4" />
+                Reset
+              </Button>
               <img src={loopLogo} alt="Loop by Neuraura" className="h-16" />
+              <div className="w-20" /> {/* Spacer for centering logo */}
             </div>
 
             <div className="space-y-2">
