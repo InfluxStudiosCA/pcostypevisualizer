@@ -135,7 +135,7 @@ const QuestionnaireFlow = () => {
                       )}
                       
                       {question.type === 'toggle' ? (
-                        <div className="flex justify-center pt-2">
+                        <div className="pt-2">
                           <ThreeWayToggle
                             value={answers[question.id] as AnswerValue || 'unknown'}
                             onChange={(value) => handleAnswer(question.id, value)}
@@ -225,11 +225,12 @@ const QuestionnaireFlow = () => {
                   </div>
 
                   <div className="p-4 rounded-lg bg-secondary/30">
-                    <h3 className="font-semibold text-foreground mb-2">Phenotype Subtype</h3>
+                    <h3 className="font-semibold text-foreground mb-2">Alternative Classification</h3>
+                    <p className="text-sm text-muted-foreground mb-1 italic">A simpler, more intuitive way to understand your PCOS type</p>
                     <p className="text-sm text-foreground">
                       {result.subtype !== 'unclear'
                         ? getPCOSTypeLabel(result.subtype)
-                        : 'Complete more questions to identify your phenotype subtype'}
+                        : 'Complete more questions to see your alternative classification'}
                     </p>
                   </div>
 
