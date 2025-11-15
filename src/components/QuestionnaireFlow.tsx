@@ -151,14 +151,25 @@ const QuestionnaireFlow = () => {
                 <ChevronLeft className="w-4 h-4" />
                 Previous
               </Button>
-              <Button
-                onClick={goToNext}
-                disabled={currentStep === categories.length - 1}
-                className="gap-2"
-              >
-                Next
-                <ChevronRight className="w-4 h-4" />
-              </Button>
+              {currentStep < categories.length - 1 ? (
+                <Button
+                  onClick={goToNext}
+                  className="gap-2"
+                >
+                  Next
+                  <ChevronRight className="w-4 h-4" />
+                </Button>
+              ) : (
+                <Button
+                  onClick={() => {
+                    // Scroll to top to see the full results visualization
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                  }}
+                  className="gap-2"
+                >
+                  Complete Assessment
+                </Button>
+              )}
             </div>
           </div>
 
