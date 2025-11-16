@@ -104,10 +104,10 @@ const QuestionnaireFlow = () => {
             {currentStep === 0 && (
               <Card className="bg-card/50 backdrop-blur">
                 <CardContent className="pt-6 space-y-4">
-                  <p className="text-foreground">
+                  <p className="text-foreground text-sm">
                     We would love to learn a little about your experience with PCOS to help us personalize your MyLoOoP experience.
                   </p>
-                  <p className="text-foreground">
+                  <p className="text-foreground text-sm">
                     By answering these questions on some of the most common symptoms of PCOS we'll be able to provide information and insights that are more relevant to you.
                   </p>
                   <p className="text-muted-foreground text-sm">
