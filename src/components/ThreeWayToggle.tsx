@@ -8,15 +8,24 @@ interface ThreeWayToggleProps {
 
 const ThreeWayToggle = ({ value, onChange, className }: ThreeWayToggleProps) => {
   return (
-    <div className={cn("inline-flex rounded-full border-2 border-primary bg-card p-1", className)}>
+    <div className={cn("inline-flex rounded-full border-2 border-primary bg-card p-1 relative", className)}>
+      {/* Animated background slider */}
+      <div
+        className={cn(
+          "absolute top-1 bottom-1 rounded-full bg-primary transition-all duration-300 ease-in-out",
+          value === 'yes' && "left-1 right-[calc(66.666%-0.25rem)]",
+          value === 'unknown' && "left-[calc(33.333%+0.125rem)] right-[calc(33.333%+0.125rem)]",
+          value === 'no' && "left-[calc(66.666%-0.25rem)] right-1"
+        )}
+      />
       <button
         type="button"
         onClick={() => onChange('yes')}
         className={cn(
-          "px-4 py-2 rounded-full text-sm font-medium transition-all",
+          "relative z-10 px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ease-in-out",
           value === 'yes'
-            ? "bg-primary text-primary-foreground"
-            : "text-muted-foreground hover:text-foreground"
+            ? "text-primary-foreground scale-105"
+            : "text-muted-foreground hover:text-foreground hover:scale-105"
         )}
       >
         Yes
@@ -25,10 +34,10 @@ const ThreeWayToggle = ({ value, onChange, className }: ThreeWayToggleProps) => 
         type="button"
         onClick={() => onChange('unknown')}
         className={cn(
-          "px-4 py-2 rounded-full text-sm font-medium transition-all",
+          "relative z-10 px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ease-in-out",
           value === 'unknown'
-            ? "bg-primary text-primary-foreground"
-            : "text-muted-foreground hover:text-foreground"
+            ? "text-primary-foreground scale-105"
+            : "text-muted-foreground hover:text-foreground hover:scale-105"
         )}
       >
         ?
@@ -37,10 +46,10 @@ const ThreeWayToggle = ({ value, onChange, className }: ThreeWayToggleProps) => 
         type="button"
         onClick={() => onChange('no')}
         className={cn(
-          "px-4 py-2 rounded-full text-sm font-medium transition-all",
+          "relative z-10 px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ease-in-out",
           value === 'no'
-            ? "bg-primary text-primary-foreground"
-            : "text-muted-foreground hover:text-foreground"
+            ? "text-primary-foreground scale-105"
+            : "text-muted-foreground hover:text-foreground hover:scale-105"
         )}
       >
         No

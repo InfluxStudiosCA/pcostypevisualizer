@@ -154,7 +154,7 @@ const PCOSVisualizer = ({ metrics, type }: PCOSVisualizerProps) => {
   const labels = [
     { abbr: 'AE', text: ['Androgen', 'Excess'], angle: 90 },
     { abbr: 'PCO', text: ['Polycystic', 'Ovaries'], angle: 330 },
-    { abbr: 'OD', text: ['Ovarian', 'Dysfunction'], angle: 210 }
+    { abbr: 'OD', text: ['Ovulatory', 'Dysfunction'], angle: 210 }
   ];
 
   return (
@@ -276,10 +276,11 @@ const PCOSVisualizer = ({ metrics, type }: PCOSVisualizerProps) => {
       {showQuestionMark && (
         <text
           x={center}
-          y={center + 10}
+          y={center}
           fontSize="64"
           fill="hsl(var(--muted-foreground))"
           textAnchor="middle"
+          dominantBaseline="middle"
           fontWeight="bold"
         >
           ?
