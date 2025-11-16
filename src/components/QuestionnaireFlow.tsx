@@ -102,7 +102,7 @@ const QuestionnaireFlow = () => {
             </div>
 
             {currentStep === 0 && (
-              <Card className="bg-card/50 backdrop-blur">
+              <Card className="bg-card/30 backdrop-blur-xl border-primary/20 shadow-lg">
                 <CardContent className="pt-6 space-y-4">
                   <p className="text-foreground text-sm">
                     We would love to learn a little about your experience with PCOS to help us personalize your MyLoOoP experience.
@@ -127,7 +127,7 @@ const QuestionnaireFlow = () => {
 
               <div className="space-y-4">
                 {currentQuestions.map((question) => (
-                  <Card key={question.id} className="bg-card/80 backdrop-blur">
+                  <Card key={question.id} className="bg-card/30 backdrop-blur-xl border-primary/20 shadow-lg">
                     <CardContent className="pt-6 space-y-3">
                       <h3 className="font-semibold text-foreground">{question.title}</h3>
                       {question.description && (
@@ -198,7 +198,7 @@ const QuestionnaireFlow = () => {
 
           {/* Right Side - Real-time Phenotype Visualization */}
           <div className="lg:sticky lg:top-8 h-fit">
-            <Card className="bg-card/80 backdrop-blur">
+            <Card className="bg-card/30 backdrop-blur-xl border-primary/20 shadow-lg">
               <CardContent className="pt-6 space-y-6">
                 <div className="text-center space-y-2">
                   <h2 className="text-2xl font-bold text-foreground">Your PCOS Profile</h2>
@@ -215,7 +215,7 @@ const QuestionnaireFlow = () => {
                 </div>
 
                 <div className="space-y-4">
-                  <div className="p-4 rounded-lg bg-secondary/30">
+                  <div className="p-4 rounded-lg bg-background/20 backdrop-blur-md border border-primary/20 shadow-md">
                     <h3 className="font-semibold text-foreground mb-2">Four-Cluster Model</h3>
                     <p className="text-sm text-foreground">
                       {result.type !== 'unclear' 
@@ -224,7 +224,7 @@ const QuestionnaireFlow = () => {
                     </p>
                   </div>
 
-                  <div className="p-4 rounded-lg bg-secondary/30">
+                  <div className="p-4 rounded-lg bg-background/20 backdrop-blur-md border border-primary/20 shadow-md">
                     <h3 className="font-semibold text-foreground mb-2">Alternative Classification</h3>
                     <p className="text-sm text-muted-foreground mb-1 italic">A simpler, more intuitive way to understand your PCOS type</p>
                     <p className="text-sm text-foreground">
@@ -234,7 +234,7 @@ const QuestionnaireFlow = () => {
                     </p>
                   </div>
 
-                  <div className="p-4 rounded-lg bg-muted/50 space-y-2">
+                  <div className="p-4 rounded-lg bg-background/20 backdrop-blur-md border border-primary/20 shadow-md space-y-2">
                     <h3 className="font-semibold text-foreground mb-2">Scoring Breakdown</h3>
                     <div className="space-y-1 text-sm">
                       <div className="flex justify-between">
