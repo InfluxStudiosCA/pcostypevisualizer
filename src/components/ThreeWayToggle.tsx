@@ -22,7 +22,7 @@ const ThreeWayToggle = ({ value, onChange, className }: ThreeWayToggleProps) => 
         type="button"
         onClick={() => onChange('yes')}
         className={cn(
-          "relative z-10 px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ease-in-out",
+          "relative z-10 flex-1 py-2 rounded-full text-sm font-medium transition-all duration-300 ease-in-out flex items-center justify-center",
           value === 'yes'
             ? "text-primary-foreground scale-105"
             : "text-muted-foreground hover:text-foreground hover:scale-105"
@@ -34,7 +34,7 @@ const ThreeWayToggle = ({ value, onChange, className }: ThreeWayToggleProps) => 
         type="button"
         onClick={() => onChange('unknown')}
         className={cn(
-          "relative z-10 px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ease-in-out",
+          "relative z-10 flex-1 py-2 rounded-full text-sm font-medium transition-all duration-300 ease-in-out flex items-center justify-center",
           value === 'unknown'
             ? "text-primary-foreground scale-105"
             : "text-muted-foreground hover:text-foreground hover:scale-105"
@@ -46,7 +46,7 @@ const ThreeWayToggle = ({ value, onChange, className }: ThreeWayToggleProps) => 
         type="button"
         onClick={() => onChange('no')}
         className={cn(
-          "relative z-10 px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ease-in-out",
+          "relative z-10 flex-1 py-2 rounded-full text-sm font-medium transition-all duration-300 ease-in-out flex items-center justify-center",
           value === 'no'
             ? "text-primary-foreground scale-105"
             : "text-muted-foreground hover:text-foreground hover:scale-105"
