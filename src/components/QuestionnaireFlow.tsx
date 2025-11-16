@@ -75,27 +75,28 @@ const QuestionnaireFlow = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-secondary/20 to-background">
-      <div className="container mx-auto px-4 py-8">
-        <div className="grid lg:grid-cols-2 gap-8">
+      <div className="container mx-auto px-4 sm:px-6 py-4 sm:py-8">
+        <div className="grid lg:grid-cols-2 gap-4 lg:gap-8">
           {/* Left Side - Questions */}
-          <div className="space-y-6">
-            <div className="flex items-center justify-between mb-8">
+          <div className="space-y-4 sm:space-y-6">
+            <div className="flex items-center justify-between mb-4 sm:mb-8">
               <Button
                 variant="outline"
                 size="sm"
                 onClick={handleReset}
-                className="gap-2"
+                className="gap-1 sm:gap-2 text-xs sm:text-sm"
               >
-                <RotateCcw className="w-4 h-4" />
-                Reset
+                <RotateCcw className="w-3 h-3 sm:w-4 sm:h-4" />
+                <span className="hidden sm:inline">Reset</span>
+                <span className="sm:hidden">Reset</span>
               </Button>
-              <img src={loopLogo} alt="Loop by Neuraura" className="h-16" />
-              <div className="w-20" /> {/* Spacer for centering logo */}
+              <img src={loopLogo} alt="Loop by Neuraura" className="h-12 sm:h-16" />
+              <div className="w-16 sm:w-20" /> {/* Spacer for centering logo */}
             </div>
 
             <div className="space-y-2">
-              <h1 className="text-3xl font-bold text-primary">Advanced Setup</h1>
-              <p className="text-sm text-muted-foreground">
+              <h1 className="text-2xl sm:text-3xl font-bold text-primary">Advanced Setup</h1>
+              <p className="text-xs sm:text-sm text-muted-foreground">
                 Step {currentStep + 1} of {categories.length}
               </p>
               <Progress value={progressPercent} className="h-2" />
@@ -121,17 +122,17 @@ const QuestionnaireFlow = () => {
             )}
 
             <div className="space-y-4">
-              <h2 className="text-xl font-semibold text-foreground">
+              <h2 className="text-lg sm:text-xl font-semibold text-foreground">
                 {categoryTitles[currentCategory]}
               </h2>
 
               <div className="space-y-4">
                 {currentQuestions.map((question) => (
                   <Card key={question.id} className="bg-card/30 backdrop-blur-xl border-primary/20 shadow-lg">
-                    <CardContent className="pt-6 space-y-3">
-                      <h3 className="font-semibold text-foreground">{question.title}</h3>
+                    <CardContent className="pt-4 sm:pt-6 space-y-3">
+                      <h3 className="font-semibold text-sm sm:text-base text-foreground">{question.title}</h3>
                       {question.description && (
-                        <p className="text-sm text-muted-foreground">{question.description}</p>
+                        <p className="text-xs sm:text-sm text-muted-foreground">{question.description}</p>
                       )}
                       
                       {question.type === 'toggle' ? (
@@ -169,17 +170,19 @@ const QuestionnaireFlow = () => {
                 variant="outline"
                 onClick={goToPrevious}
                 disabled={currentStep === 0}
-                className="gap-2"
+                className="gap-1 sm:gap-2"
               >
                 <ChevronLeft className="w-4 h-4" />
-                Previous
+                <span className="hidden sm:inline">Previous</span>
+                <span className="sm:hidden">Prev</span>
               </Button>
               {currentStep < categories.length - 1 ? (
                 <Button
                   onClick={goToNext}
-                  className="gap-2"
+                  className="gap-1 sm:gap-2"
                 >
-                  Next
+                  <span className="hidden sm:inline">Next</span>
+                  <span className="sm:hidden">Next</span>
                   <ChevronRight className="w-4 h-4" />
                 </Button>
               ) : (
@@ -188,16 +191,17 @@ const QuestionnaireFlow = () => {
                     // Scroll to top to see the full results visualization
                     window.scrollTo({ top: 0, behavior: 'smooth' });
                   }}
-                  className="gap-2"
+                  className="gap-1 sm:gap-2 text-xs sm:text-sm"
                 >
-                  Complete Assessment
+                  <span className="hidden sm:inline">Complete Assessment</span>
+                  <span className="sm:hidden">Complete</span>
                 </Button>
               )}
             </div>
           </div>
 
-          {/* Right Side - Real-time Phenotype Visualization */}
-          <div className="lg:sticky lg:top-8 h-fit">
+          {/* Right Side - Real-time Phenotype Visualization - Hidden on mobile */}
+          <div className="hidden lg:block lg:sticky lg:top-8 h-fit">
             <Card className="bg-card/30 backdrop-blur-xl border-primary/20 shadow-lg">
               <CardContent className="pt-6 space-y-6">
                 <div className="text-center space-y-2">
