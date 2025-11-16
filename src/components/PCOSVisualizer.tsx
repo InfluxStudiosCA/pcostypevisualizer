@@ -291,7 +291,7 @@ const PCOSVisualizer = ({ metrics, type }: PCOSVisualizerProps) => {
       {labels.map((label, index) => {
         const rad = (label.angle * Math.PI) / 180;
         const abbrRadius = maxRadius + 35;
-        const textRadius = maxRadius + 70;
+        const textRadius = maxRadius + 85; // Increased from 70 to 85 for more spacing
         const abbrX = center + abbrRadius * Math.cos(rad);
         const abbrY = center + abbrRadius * Math.sin(rad);
         const textX = center + textRadius * Math.cos(rad);
