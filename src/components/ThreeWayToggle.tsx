@@ -8,11 +8,11 @@ interface ThreeWayToggleProps {
 
 const ThreeWayToggle = ({ value, onChange, className }: ThreeWayToggleProps) => {
   return (
-    <div className={cn("inline-flex rounded-full border-2 border-primary bg-card p-1 relative", className)}>
+    <div className={cn("inline-flex rounded-full border border-primary/30 bg-background/40 backdrop-blur-md p-1 relative shadow-lg", className)}>
       {/* Animated background slider */}
       <div
         className={cn(
-          "absolute top-1 bottom-1 rounded-full bg-primary transition-all duration-300 ease-in-out",
+          "absolute top-1 bottom-1 rounded-full bg-primary/90 backdrop-blur-sm shadow-md transition-all duration-300 ease-in-out",
           value === 'yes' && "left-1 right-[calc(66.666%-0.25rem)]",
           value === 'unknown' && "left-[calc(33.333%+0.125rem)] right-[calc(33.333%+0.125rem)]",
           value === 'no' && "left-[calc(66.666%-0.25rem)] right-1"
