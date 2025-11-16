@@ -12,17 +12,17 @@ const ThreeWayToggle = ({ value, onChange, className }: ThreeWayToggleProps) => 
       {/* Animated background slider */}
       <div
         className={cn(
-          "absolute top-1 bottom-1 rounded-full bg-primary/90 backdrop-blur-sm shadow-md transition-all duration-300 ease-in-out w-[calc(33.333%-0.25rem)]",
-          value === 'yes' && "left-1",
-          value === 'unknown' && "left-[calc(33.333%+0.125rem)]",
-          value === 'no' && "left-[calc(66.666%+0.125rem)]"
+          "absolute top-1 bottom-1 rounded-full bg-primary/90 backdrop-blur-sm shadow-md transition-all duration-300 ease-in-out",
+          value === 'yes' && "left-1 right-[calc(66.666%-0.25rem)]",
+          value === 'unknown' && "left-[calc(33.333%+0.125rem)] right-[calc(33.333%+0.125rem)]",
+          value === 'no' && "left-[calc(66.666%-0.25rem)] right-1"
         )}
       />
       <button
         type="button"
         onClick={() => onChange('yes')}
         className={cn(
-          "relative z-10 w-[33.333%] py-2 rounded-full text-sm font-medium transition-all duration-300 ease-in-out text-center",
+          "relative z-10 px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ease-in-out",
           value === 'yes'
             ? "text-primary-foreground scale-105"
             : "text-muted-foreground hover:text-foreground hover:scale-105"
@@ -34,7 +34,7 @@ const ThreeWayToggle = ({ value, onChange, className }: ThreeWayToggleProps) => 
         type="button"
         onClick={() => onChange('unknown')}
         className={cn(
-          "relative z-10 w-[33.333%] py-2 rounded-full text-sm font-medium transition-all duration-300 ease-in-out text-center",
+          "relative z-10 px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ease-in-out",
           value === 'unknown'
             ? "text-primary-foreground scale-105"
             : "text-muted-foreground hover:text-foreground hover:scale-105"
@@ -46,7 +46,7 @@ const ThreeWayToggle = ({ value, onChange, className }: ThreeWayToggleProps) => 
         type="button"
         onClick={() => onChange('no')}
         className={cn(
-          "relative z-10 w-[33.333%] py-2 rounded-full text-sm font-medium transition-all duration-300 ease-in-out text-center",
+          "relative z-10 px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ease-in-out",
           value === 'no'
             ? "text-primary-foreground scale-105"
             : "text-muted-foreground hover:text-foreground hover:scale-105"
