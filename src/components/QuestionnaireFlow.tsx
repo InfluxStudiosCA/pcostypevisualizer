@@ -197,7 +197,7 @@ const QuestionnaireFlow = () => {
           </div>
 
           {/* Right Side - Real-time Phenotype Visualization */}
-          <div className="lg:sticky lg:top-8 h-fit order-first lg:order-last">
+          <div className="lg:sticky lg:top-8 h-fit">
             <Card className="bg-card/30 backdrop-blur-xl border-primary/20 shadow-lg">
               <CardContent className="pt-6 space-y-6">
                 <div className="text-center space-y-2">
