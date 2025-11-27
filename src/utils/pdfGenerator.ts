@@ -1,5 +1,7 @@
 import { jsPDF } from 'jspdf';
 import { ReportData, Topic } from '@/types/report';
+import looopLogo from '@/assets/loop-logo.png';
+import looopBackground from '@/assets/looop-background.png';
 
 const getTopicDisplayName = (topic: Topic): string => {
   const topicMap: Record<Topic, string> = {
@@ -32,15 +34,24 @@ export const generateReportPDF = (data: ReportData): void => {
   const margin = 20;
   let yPosition = margin;
 
+  // Add transparent gradient background watermark
+  doc.addImage(looopBackground, 'PNG', 0, 0, pageWidth, pageHeight, undefined, 'NONE', 0);
+  doc.setGState(doc.GState({ opacity: 0.05 }));
+  doc.addImage(looopBackground, 'PNG', 0, 0, pageWidth, pageHeight);
+  doc.setGState(doc.GState({ opacity: 1 }));
+
   // Header with brand turquoise color
   doc.setFillColor(58, 196, 182); // Brand turquoise (--primary: 173 58% 55%)
   doc.rect(0, 0, pageWidth, 40, 'F');
+  
+  // Add logo to top left
+  doc.addImage(looopLogo, 'PNG', margin, 8, 25, 25);
   
   // Title
   doc.setTextColor(255, 255, 255);
   doc.setFontSize(24);
   doc.setFont('helvetica', 'bold');
-  doc.text('Health Report', margin, 25);
+  doc.text('Health Report', margin + 30, 25);
   
   // Reset text color
   doc.setTextColor(0, 0, 0);
