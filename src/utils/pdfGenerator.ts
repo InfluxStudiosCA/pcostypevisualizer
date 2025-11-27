@@ -32,8 +32,8 @@ export const generateReportPDF = (data: ReportData): void => {
   const margin = 20;
   let yPosition = margin;
 
-  // Header with gradient effect (simulated with rectangles)
-  doc.setFillColor(99, 102, 241); // Primary color
+  // Header with brand turquoise color
+  doc.setFillColor(58, 196, 182); // Brand turquoise (--primary: 173 58% 55%)
   doc.rect(0, 0, pageWidth, 40, 'F');
   
   // Title
@@ -88,14 +88,14 @@ export const generateReportPDF = (data: ReportData): void => {
   
   // Mind Card
   if (mindScore) {
-    doc.setFillColor(240, 245, 255);
+    doc.setFillColor(233, 247, 245); // Light background
     doc.roundedRect(margin, cardY, cardWidth, cardHeight, 3, 3, 'F');
     doc.setFontSize(11);
     doc.setFont('helvetica', 'bold');
-    doc.setTextColor(60, 60, 60);
+    doc.setTextColor(20, 36, 82); // Foreground dark blue
     doc.text('Mind', margin + 5, cardY + 10);
     doc.setFontSize(24);
-    doc.setTextColor(99, 102, 241);
+    doc.setTextColor(58, 196, 182); // Brand turquoise
     doc.text(`${mindScore.score}`, margin + 5, cardY + 25);
     doc.setFontSize(9);
     doc.setTextColor(100, 100, 100);
@@ -103,14 +103,14 @@ export const generateReportPDF = (data: ReportData): void => {
   }
   
   // Body Card
-  doc.setFillColor(240, 253, 244);
+  doc.setFillColor(233, 247, 245); // Light background
   doc.roundedRect(margin + cardWidth + 5, cardY, cardWidth, cardHeight, 3, 3, 'F');
   doc.setFontSize(11);
   doc.setFont('helvetica', 'bold');
-  doc.setTextColor(60, 60, 60);
+  doc.setTextColor(20, 36, 82); // Foreground dark blue
   doc.text('Body', margin + cardWidth + 10, cardY + 10);
   doc.setFontSize(24);
-  doc.setTextColor(34, 197, 94);
+  doc.setTextColor(58, 196, 182); // Brand turquoise
   doc.text(`${avgBodyScore}`, margin + cardWidth + 10, cardY + 25);
   doc.setFontSize(9);
   doc.setTextColor(100, 100, 100);
@@ -119,14 +119,14 @@ export const generateReportPDF = (data: ReportData): void => {
   
   // Spirit Card
   if (spiritScore) {
-    doc.setFillColor(254, 243, 199);
+    doc.setFillColor(233, 247, 245); // Light background
     doc.roundedRect(margin + 2 * (cardWidth + 5), cardY, cardWidth, cardHeight, 3, 3, 'F');
     doc.setFontSize(11);
     doc.setFont('helvetica', 'bold');
-    doc.setTextColor(60, 60, 60);
+    doc.setTextColor(20, 36, 82); // Foreground dark blue
     doc.text('Spirit', margin + 2 * (cardWidth + 5) + 5, cardY + 10);
     doc.setFontSize(24);
-    doc.setTextColor(251, 146, 60);
+    doc.setTextColor(58, 196, 182); // Brand turquoise
     doc.text(`${spiritScore.score}`, margin + 2 * (cardWidth + 5) + 5, cardY + 25);
     doc.setFontSize(9);
     doc.setTextColor(100, 100, 100);
@@ -149,11 +149,11 @@ export const generateReportPDF = (data: ReportData): void => {
   yPosition += 12;
   
   // Table header
-  doc.setFillColor(240, 240, 240);
+  doc.setFillColor(160, 222, 214); // Secondary turquoise
   doc.rect(margin, yPosition, pageWidth - 2 * margin, 10, 'F');
   doc.setFontSize(10);
   doc.setFont('helvetica', 'bold');
-  doc.setTextColor(60, 60, 60);
+  doc.setTextColor(20, 36, 82); // Foreground dark blue
   doc.text('Topic', margin + 3, yPosition + 7);
   doc.text('Score', pageWidth - margin - 70, yPosition + 7);
   doc.text('Sessions', pageWidth - margin - 35, yPosition + 7);
