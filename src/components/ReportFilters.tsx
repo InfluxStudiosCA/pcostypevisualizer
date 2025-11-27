@@ -107,7 +107,7 @@ export const ReportFilters = ({ onPreview, onDownloadPDF }: ReportFiltersProps) 
             {/* Topics Section */}
             <div>
               <h3 className="text-sm font-semibold text-foreground mb-2">Topics</h3>
-              <div className="flex flex-wrap gap-x-6 gap-y-2">
+              <div className="grid grid-cols-2 lg:flex lg:flex-wrap gap-x-6 gap-y-2">
                 <div className="flex items-center space-x-2">
                   <Checkbox 
                     id="mind" 
