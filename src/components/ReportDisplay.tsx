@@ -16,9 +16,9 @@ interface ReportDisplayProps {
 }
 
 const topicColors: Record<string, string> = {
-  'mind': 'bg-background/40 backdrop-blur-md border-2 border-[hsl(174,66%,62%)]/30',
-  'body': 'bg-background/40 backdrop-blur-md border-2 border-[hsl(258,84%,65%)]/30',
-  'spirit': 'bg-background/40 backdrop-blur-md border-2 border-[hsl(293,84%,73%)]/30'
+  'mind': 'bg-background/40 backdrop-blur-md border border-foreground/10',
+  'body': 'bg-background/40 backdrop-blur-md border border-foreground/10',
+  'spirit': 'bg-background/40 backdrop-blur-md border border-foreground/10'
 };
 
 const formatTimePeriod = (period: string) => {
