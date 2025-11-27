@@ -1,6 +1,9 @@
 import { jsPDF } from 'jspdf';
 import { ReportData, Topic } from '@/types/report';
 import looopLogoWhite from '@/assets/looop-logo-white.png';
+import mindIcon from '@/assets/mind-icon.png';
+import bodyIcon from '@/assets/body-icon.png';
+import spiritIcon from '@/assets/spirit-icon.png';
 
 const getTopicDisplayName = (topic: Topic): string => {
   const topicMap: Record<Topic, string> = {
@@ -33,42 +36,33 @@ export const generateReportPDF = (data: ReportData): void => {
   const margin = 20;
   let yPosition = margin;
 
-  // Create subtle gradient background - almost white with brand colors
-  // Top section: light turquoise
-  doc.setFillColor(235, 250, 248); // Very light turquoise
-  doc.rect(0, 0, pageWidth, pageHeight * 0.4, 'F');
-  
-  // Middle section: very light lavender
-  doc.setFillColor(245, 242, 252); // Very light lavender
-  doc.rect(0, pageHeight * 0.3, pageWidth, pageHeight * 0.4, 'F');
-  
-  // Bottom section: almost white
-  doc.setFillColor(252, 252, 252); // Almost white
-  doc.rect(0, pageHeight * 0.6, pageWidth, pageHeight * 0.4, 'F');
+  // Create very subtle gradient background - mostly white
+  doc.setFillColor(252, 252, 254); // Almost white with slight cool tint
+  doc.rect(0, 0, pageWidth, pageHeight, 'F');
 
   // Header with brand dark blue
   doc.setFillColor(20, 36, 82); // Brand dark blue (--foreground: 217 60% 20%)
-  doc.rect(0, 0, pageWidth, 45, 'F');
+  doc.rect(0, 0, pageWidth, 50, 'F');
   
-  // Add white logo to top left (maintain aspect ratio)
-  const logoWidth = 40;
-  const logoHeight = 12; // Approximate aspect ratio for the logo
-  doc.addImage(looopLogoWhite, 'PNG', margin, 15, logoWidth, logoHeight);
+  // Add white logo to top left (proper aspect ratio - logo is wide)
+  const logoWidth = 50;
+  const logoHeight = 18; // Maintain proper aspect ratio
+  doc.addImage(looopLogoWhite, 'PNG', margin, 16, logoWidth, logoHeight);
   
-  // Title
+  // Title with Poppins-like font (using helvetica as fallback since jsPDF has limited fonts)
   doc.setTextColor(255, 255, 255);
-  doc.setFontSize(24);
+  doc.setFontSize(26);
   doc.setFont('helvetica', 'bold');
-  doc.text('Health Report', margin + logoWidth + 10, 28);
+  doc.text('Health Report', margin + logoWidth + 15, 30);
   
   // Reset text color
   doc.setTextColor(0, 0, 0);
-  yPosition = 60;
+  yPosition = 65;
   
   // Report metadata
   doc.setFontSize(10);
   doc.setFont('helvetica', 'normal');
-  doc.setTextColor(100, 100, 100);
+  doc.setTextColor(80, 80, 80);
   const generatedDate = new Date(data.generatedDate).toLocaleDateString('en-US', {
     year: 'numeric',
     month: 'long',
@@ -107,14 +101,22 @@ export const generateReportPDF = (data: ReportData): void => {
   
   // Mind Card
   if (mindScore) {
-    doc.setFillColor(233, 247, 245); // Light background
-    doc.roundedRect(margin, cardY, cardWidth, cardHeight, 3, 3, 'F');
+    // White background with dark blue border
+    doc.setFillColor(255, 255, 255);
+    doc.setDrawColor(20, 36, 82);
+    doc.setLineWidth(0.5);
+    doc.roundedRect(margin, cardY, cardWidth, cardHeight, 3, 3, 'FD');
+    
+    // Add mind icon
+    const iconSize = 8;
+    doc.addImage(mindIcon, 'PNG', margin + 5, cardY + 5, iconSize, iconSize);
+    
     doc.setFontSize(11);
     doc.setFont('helvetica', 'bold');
-    doc.setTextColor(20, 36, 82); // Foreground dark blue
-    doc.text('Mind', margin + 5, cardY + 10);
+    doc.setTextColor(20, 36, 82);
+    doc.text('Mind', margin + 5 + iconSize + 3, cardY + 11);
     doc.setFontSize(24);
-    doc.setTextColor(58, 196, 182); // Brand turquoise
+    doc.setTextColor(58, 196, 182);
     doc.text(`${mindScore.score}`, margin + 5, cardY + 25);
     doc.setFontSize(9);
     doc.setTextColor(100, 100, 100);
@@ -122,14 +124,21 @@ export const generateReportPDF = (data: ReportData): void => {
   }
   
   // Body Card
-  doc.setFillColor(233, 247, 245); // Light background
-  doc.roundedRect(margin + cardWidth + 5, cardY, cardWidth, cardHeight, 3, 3, 'F');
+  doc.setFillColor(255, 255, 255);
+  doc.setDrawColor(20, 36, 82);
+  doc.setLineWidth(0.5);
+  doc.roundedRect(margin + cardWidth + 5, cardY, cardWidth, cardHeight, 3, 3, 'FD');
+  
+  // Add body icon
+  const iconSize = 8;
+  doc.addImage(bodyIcon, 'PNG', margin + cardWidth + 10, cardY + 5, iconSize, iconSize);
+  
   doc.setFontSize(11);
   doc.setFont('helvetica', 'bold');
-  doc.setTextColor(20, 36, 82); // Foreground dark blue
-  doc.text('Body', margin + cardWidth + 10, cardY + 10);
+  doc.setTextColor(20, 36, 82);
+  doc.text('Body', margin + cardWidth + 10 + iconSize + 3, cardY + 11);
   doc.setFontSize(24);
-  doc.setTextColor(58, 196, 182); // Brand turquoise
+  doc.setTextColor(58, 196, 182);
   doc.text(`${avgBodyScore}`, margin + cardWidth + 10, cardY + 25);
   doc.setFontSize(9);
   doc.setTextColor(100, 100, 100);
@@ -138,14 +147,21 @@ export const generateReportPDF = (data: ReportData): void => {
   
   // Spirit Card
   if (spiritScore) {
-    doc.setFillColor(233, 247, 245); // Light background
-    doc.roundedRect(margin + 2 * (cardWidth + 5), cardY, cardWidth, cardHeight, 3, 3, 'F');
+    doc.setFillColor(255, 255, 255);
+    doc.setDrawColor(20, 36, 82);
+    doc.setLineWidth(0.5);
+    doc.roundedRect(margin + 2 * (cardWidth + 5), cardY, cardWidth, cardHeight, 3, 3, 'FD');
+    
+    // Add spirit icon
+    const iconSize = 8;
+    doc.addImage(spiritIcon, 'PNG', margin + 2 * (cardWidth + 5) + 5, cardY + 5, iconSize, iconSize);
+    
     doc.setFontSize(11);
     doc.setFont('helvetica', 'bold');
-    doc.setTextColor(20, 36, 82); // Foreground dark blue
-    doc.text('Spirit', margin + 2 * (cardWidth + 5) + 5, cardY + 10);
+    doc.setTextColor(20, 36, 82);
+    doc.text('Spirit', margin + 2 * (cardWidth + 5) + 5 + iconSize + 3, cardY + 11);
     doc.setFontSize(24);
-    doc.setTextColor(58, 196, 182); // Brand turquoise
+    doc.setTextColor(58, 196, 182);
     doc.text(`${spiritScore.score}`, margin + 2 * (cardWidth + 5) + 5, cardY + 25);
     doc.setFontSize(9);
     doc.setTextColor(100, 100, 100);
