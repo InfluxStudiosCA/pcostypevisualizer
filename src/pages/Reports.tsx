@@ -34,14 +34,21 @@ const Reports = () => {
   };
 
   const handleDownloadPDF = (filters: ReportFiltersType) => {
-    // Developer: Implement PDF generation and download functionality
-    // You can use libraries like jsPDF or react-pdf
-    // Example:
-    // const pdfData = generatePDF(filters);
-    // downloadPDF(pdfData);
+    if (!reportData) {
+      toast.error('Please generate a report preview first');
+      return;
+    }
     
-    toast.success('PDF download started (placeholder)');
-    console.log('Download PDF with filters:', filters);
+    try {
+      // Dynamic import to keep bundle size smaller
+      import('@/utils/pdfGenerator').then(({ generateReportPDF }) => {
+        generateReportPDF(reportData);
+        toast.success('PDF downloaded successfully');
+      });
+    } catch (error) {
+      toast.error('Failed to generate PDF');
+      console.error('PDF generation error:', error);
+    }
   };
 
   return (
