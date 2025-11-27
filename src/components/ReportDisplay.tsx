@@ -84,7 +84,7 @@ export const ReportDisplay = ({ data }: ReportDisplayProps) => {
               <div className="flex flex-col items-center text-center space-y-3">
                 <img src={mindIcon} alt="Mind" className="h-16 w-16" />
                 <h3 className="font-semibold text-lg text-foreground">Mind</h3>
-                <p className="text-5xl font-bold text-foreground">{mindScore.score}</p>
+                <p className="text-3xl font-bold text-foreground">{mindScore.score}</p>
               </div>
             </Card>
           )}
@@ -94,7 +94,7 @@ export const ReportDisplay = ({ data }: ReportDisplayProps) => {
             <div className="flex flex-col items-center text-center space-y-3">
               <img src={bodyIcon} alt="Body" className="h-16 w-16" />
               <h3 className="font-semibold text-lg text-foreground">Body</h3>
-              <p className="text-5xl font-bold text-foreground">{avgBodyScore}</p>
+              <p className="text-3xl font-bold text-foreground">{avgBodyScore}</p>
             </div>
           </Card>
 
@@ -104,7 +104,7 @@ export const ReportDisplay = ({ data }: ReportDisplayProps) => {
               <div className="flex flex-col items-center text-center space-y-3">
                 <img src={spiritIcon} alt="Spirit" className="h-16 w-16" />
                 <h3 className="font-semibold text-lg text-foreground">Spirit</h3>
-                <p className="text-5xl font-bold text-foreground">{spiritScore.score}</p>
+                <p className="text-3xl font-bold text-foreground">{spiritScore.score}</p>
               </div>
             </Card>
           )}
