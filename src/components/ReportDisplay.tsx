@@ -16,9 +16,9 @@ interface ReportDisplayProps {
 }
 
 const topicColors: Record<string, string> = {
-  'mind': 'bg-[hsl(174,66%,62%)] text-white',
-  'body': 'bg-[hsl(258,84%,65%)] text-white',
-  'spirit': 'bg-[hsl(293,84%,73%)] text-white'
+  'mind': 'bg-background/40 backdrop-blur-md border-2 border-[hsl(174,66%,62%)]/30',
+  'body': 'bg-background/40 backdrop-blur-md border-2 border-[hsl(258,84%,65%)]/30',
+  'spirit': 'bg-background/40 backdrop-blur-md border-2 border-[hsl(293,84%,73%)]/30'
 };
 
 const formatTimePeriod = (period: string) => {
@@ -80,31 +80,31 @@ export const ReportDisplay = ({ data }: ReportDisplayProps) => {
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           {/* Mind Card */}
           {mindScore && (
-            <Card className={`p-6 ${topicColors.mind} border-0`}>
+            <Card className={`p-6 ${topicColors.mind} shadow-lg`}>
               <div className="flex flex-col items-center text-center space-y-3">
-                <img src={mindIcon} alt="Mind" className="h-12 w-12" />
-                <h3 className="font-semibold text-sm">Mind</h3>
-                <p className="text-5xl font-bold">{mindScore.score}</p>
+                <img src={mindIcon} alt="Mind" className="h-16 w-16" />
+                <h3 className="font-semibold text-lg text-foreground">Mind</h3>
+                <p className="text-5xl font-bold text-foreground">{mindScore.score}</p>
               </div>
             </Card>
           )}
 
           {/* Body Card - Combined */}
-          <Card className={`p-6 ${topicColors.body} border-0`}>
+          <Card className={`p-6 ${topicColors.body} shadow-lg`}>
             <div className="flex flex-col items-center text-center space-y-3">
-              <img src={bodyIcon} alt="Body" className="h-12 w-12" />
-              <h3 className="font-semibold text-sm">Body</h3>
-              <p className="text-5xl font-bold">{avgBodyScore}</p>
+              <img src={bodyIcon} alt="Body" className="h-16 w-16" />
+              <h3 className="font-semibold text-lg text-foreground">Body</h3>
+              <p className="text-5xl font-bold text-foreground">{avgBodyScore}</p>
             </div>
           </Card>
 
           {/* Spirit Card */}
           {spiritScore && (
-            <Card className={`p-6 ${topicColors.spirit} border-0`}>
+            <Card className={`p-6 ${topicColors.spirit} shadow-lg`}>
               <div className="flex flex-col items-center text-center space-y-3">
-                <img src={spiritIcon} alt="Spirit" className="h-12 w-12" />
-                <h3 className="font-semibold text-sm">Spirit</h3>
-                <p className="text-5xl font-bold">{spiritScore.score}</p>
+                <img src={spiritIcon} alt="Spirit" className="h-16 w-16" />
+                <h3 className="font-semibold text-lg text-foreground">Spirit</h3>
+                <p className="text-5xl font-bold text-foreground">{spiritScore.score}</p>
               </div>
             </Card>
           )}
