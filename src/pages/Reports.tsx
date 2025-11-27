@@ -4,6 +4,9 @@ import { ReportFilters } from '@/components/ReportFilters';
 import { ReportDisplay } from '@/components/ReportDisplay';
 import { ReportFilters as ReportFiltersType, ReportData } from '@/types/report';
 import { toast } from 'sonner';
+import { Link } from 'react-router-dom';
+import { Button } from '@/components/ui/button';
+import { ArrowLeft } from 'lucide-react';
 
 const Reports = () => {
   const [showPreview, setShowPreview] = useState(false);
@@ -44,9 +47,16 @@ const Reports = () => {
   return (
     <div className="min-h-screen bg-background">
       <div className="container mx-auto py-6 space-y-6">
-        {/* Header with Theme Toggle */}
+        {/* Header with Navigation */}
         <div className="flex justify-between items-center">
-          <h1 className="text-3xl font-bold text-foreground">Health Reports</h1>
+          <div className="flex items-center gap-4">
+            <Link to="/">
+              <Button variant="ghost" size="icon">
+                <ArrowLeft className="h-5 w-5" />
+              </Button>
+            </Link>
+            <h1 className="text-3xl font-bold text-foreground">Health Reports</h1>
+          </div>
           <ThemeToggle />
         </div>
 
