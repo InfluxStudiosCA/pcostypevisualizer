@@ -1,24 +1,24 @@
 import { Card } from '@/components/ui/card';
 import { ReportData, Topic } from '@/types/report';
-import { Brain, Activity, Sparkles } from 'lucide-react';
+import { ChevronDown } from 'lucide-react';
+import mindIcon from '@/assets/mind-icon.png';
+import bodyIcon from '@/assets/body-icon.png';
+import spiritIcon from '@/assets/spirit-icon.png';
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "@/components/ui/collapsible";
+import { useState } from 'react';
 
 interface ReportDisplayProps {
   data: ReportData;
 }
 
-const topicColors: Record<Topic, string> = {
+const topicColors: Record<string, string> = {
   'mind': 'bg-[hsl(174,66%,62%)] text-white',
-  'body-hormonal': 'bg-[hsl(258,84%,65%)] text-white',
-  'body-metabolic': 'bg-[hsl(258,84%,65%)] text-white',
-  'body-menstrual': 'bg-[hsl(258,84%,65%)] text-white',
-  'body-reproductive': 'bg-[hsl(258,84%,65%)] text-white',
+  'body': 'bg-[hsl(258,84%,65%)] text-white',
   'spirit': 'bg-[hsl(293,84%,73%)] text-white'
-};
-
-const topicIcons: Record<string, React.ReactNode> = {
-  'mind': <Brain className="h-6 w-6" />,
-  'body': <Activity className="h-6 w-6" />,
-  'spirit': <Sparkles className="h-6 w-6" />
 };
 
 const formatTimePeriod = (period: string) => {
@@ -36,94 +36,162 @@ const formatTimePeriod = (period: string) => {
 const getTopicDisplayName = (topic: Topic) => {
   const map: Record<Topic, string> = {
     'mind': 'Mind',
-    'body-hormonal': 'Body - Hormonal',
-    'body-metabolic': 'Body - Metabolic',
-    'body-menstrual': 'Body - Menstrual',
-    'body-reproductive': 'Body - Reproductive',
+    'body-hormonal': 'Hormonal',
+    'body-metabolic': 'Metabolic',
+    'body-menstrual': 'Menstrual',
+    'body-reproductive': 'Reproductive',
     'spirit': 'Spirit'
   };
   return map[topic];
 };
 
-const getTopicIcon = (topic: Topic) => {
-  if (topic === 'mind') return topicIcons.mind;
-  if (topic === 'spirit') return topicIcons.spirit;
-  return topicIcons.body;
-};
-
 export const ReportDisplay = ({ data }: ReportDisplayProps) => {
+  const [openSections, setOpenSections] = useState<Record<string, boolean>>({});
+  
+  // Group body topics
+  const bodyTopics = data.topicScores.filter(t => t.topic.startsWith('body-'));
+  const mindScore = data.topicScores.find(t => t.topic === 'mind');
+  const spiritScore = data.topicScores.find(t => t.topic === 'spirit');
+  
+  // Calculate average body score
+  const avgBodyScore = bodyTopics.length > 0 
+    ? Math.round(bodyTopics.reduce((sum, t) => sum + t.score, 0) / bodyTopics.length)
+    : 0;
+
+  const toggleSection = (topic: string) => {
+    setOpenSections(prev => ({ ...prev, [topic]: !prev[topic] }));
+  };
+
   // Developer: Replace this mock data with actual data from your backend
-  // You can fetch data based on the filters passed to this component
   
   return (
-    <Card className="p-6 lg:p-8 bg-card border-border">
-      <div className="space-y-8">
+    <Card className="p-4 lg:p-8 bg-card border-border">
+      <div className="space-y-6">
         {/* Report Header */}
         <div className="space-y-2">
-          <h2 className="text-3xl font-bold text-foreground">MyLoOoP Health Report</h2>
-          <div className="text-sm text-muted-foreground">
+          <h2 className="text-2xl lg:text-3xl font-bold text-foreground">MyLoOoP Health Report</h2>
+          <div className="text-xs lg:text-sm text-muted-foreground">
             <p>Time Period: {formatTimePeriod(data.timePeriod)}</p>
             <p>Generated: {new Date(data.generatedDate).toLocaleDateString()}</p>
           </div>
         </div>
 
-        {/* Top Level Scores */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {data.topicScores.map((topicScore) => {
-            const baseCategory = topicScore.topic.split('-')[0] as 'mind' | 'body' | 'spirit';
-            const colorClass = topicColors[topicScore.topic];
-            
-            return (
-              <Card 
-                key={topicScore.topic} 
-                className={`p-6 ${colorClass} border-0`}
-              >
-                <div className="flex flex-col items-center text-center space-y-2">
-                  {getTopicIcon(topicScore.topic)}
-                  <h3 className="font-semibold text-sm">
-                    {baseCategory.charAt(0).toUpperCase() + baseCategory.slice(1)}
-                  </h3>
-                  <p className="text-5xl font-bold">{topicScore.score}</p>
-                </div>
-              </Card>
-            );
-          })}
-        </div>
-
-        {/* Detailed Topic Breakdowns */}
-        <div className="space-y-6">
-          {data.topicScores.map((topicScore) => (
-            <Card key={topicScore.topic} className="p-6 bg-muted/30 border-border">
-              <h3 className="text-2xl font-bold text-foreground mb-4">
-                {getTopicDisplayName(topicScore.topic)}
-              </h3>
-              <div className="space-y-2 text-foreground">
-                <p>Assessment Sessions: {topicScore.assessmentSessions}</p>
-                <p>Average Score: {topicScore.averageScore.toFixed(1)}</p>
-                {/* Developer: Add additional metrics here based on informationType filters:
-                    - For 'quantitative': Add detailed numerical metrics, charts, trends
-                    - For 'qualitative': Add text summaries, journal entries, insights
-                    Example:
-                    {includesQuantitative && (
-                      <div className="mt-4">
-                        <h4>Detailed Metrics</h4>
-                        <ul>
-                          <li>Metric 1: {data.metric1}</li>
-                          <li>Metric 2: {data.metric2}</li>
-                        </ul>
-                      </div>
-                    )}
-                */}
+        {/* Top Level Scores - 3 Cards */}
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          {/* Mind Card */}
+          {mindScore && (
+            <Card className={`p-6 ${topicColors.mind} border-0`}>
+              <div className="flex flex-col items-center text-center space-y-3">
+                <img src={mindIcon} alt="Mind" className="h-12 w-12" />
+                <h3 className="font-semibold text-sm">Mind</h3>
+                <p className="text-5xl font-bold">{mindScore.score}</p>
               </div>
             </Card>
-          ))}
+          )}
+
+          {/* Body Card - Combined */}
+          <Card className={`p-6 ${topicColors.body} border-0`}>
+            <div className="flex flex-col items-center text-center space-y-3">
+              <img src={bodyIcon} alt="Body" className="h-12 w-12" />
+              <h3 className="font-semibold text-sm">Body</h3>
+              <p className="text-5xl font-bold">{avgBodyScore}</p>
+            </div>
+          </Card>
+
+          {/* Spirit Card */}
+          {spiritScore && (
+            <Card className={`p-6 ${topicColors.spirit} border-0`}>
+              <div className="flex flex-col items-center text-center space-y-3">
+                <img src={spiritIcon} alt="Spirit" className="h-12 w-12" />
+                <h3 className="font-semibold text-sm">Spirit</h3>
+                <p className="text-5xl font-bold">{spiritScore.score}</p>
+              </div>
+            </Card>
+          )}
+        </div>
+
+        {/* Detailed Collapsible Topic Breakdowns */}
+        <div className="space-y-3">
+          {/* Mind Details */}
+          {mindScore && (
+            <Collapsible open={openSections.mind} onOpenChange={() => toggleSection('mind')}>
+              <Card className="overflow-hidden border-border">
+                <CollapsibleTrigger className="w-full">
+                  <div className="flex items-center justify-between p-4 hover:bg-muted/50 transition-colors">
+                    <h3 className="text-lg font-bold text-foreground">Mind</h3>
+                    <ChevronDown className={`h-5 w-5 transition-transform ${openSections.mind ? 'rotate-180' : ''}`} />
+                  </div>
+                </CollapsibleTrigger>
+                <CollapsibleContent>
+                  <div className="p-4 pt-0 space-y-2 text-sm text-foreground">
+                    <p>Assessment Sessions: {mindScore.assessmentSessions}</p>
+                    <p>Average Score: {mindScore.averageScore.toFixed(1)}</p>
+                    {/* Developer: Connect to your data architecture here
+                        Add metrics like: mood trends, stress levels, mental clarity scores, etc. */}
+                  </div>
+                </CollapsibleContent>
+              </Card>
+            </Collapsible>
+          )}
+
+          {/* Body Details - with subcategories */}
+          <Collapsible open={openSections.body} onOpenChange={() => toggleSection('body')}>
+            <Card className="overflow-hidden border-border">
+              <CollapsibleTrigger className="w-full">
+                <div className="flex items-center justify-between p-4 hover:bg-muted/50 transition-colors">
+                  <h3 className="text-lg font-bold text-foreground">Body</h3>
+                  <ChevronDown className={`h-5 w-5 transition-transform ${openSections.body ? 'rotate-180' : ''}`} />
+                </div>
+              </CollapsibleTrigger>
+              <CollapsibleContent>
+                <div className="p-4 pt-0 space-y-4">
+                  {bodyTopics.map((topicScore) => (
+                    <div key={topicScore.topic} className="border-l-2 border-primary pl-4 space-y-1">
+                      <h4 className="font-semibold text-foreground">{getTopicDisplayName(topicScore.topic)}</h4>
+                      <div className="text-sm text-muted-foreground space-y-1">
+                        <p>Score: {topicScore.score}</p>
+                        <p>Sessions: {topicScore.assessmentSessions}</p>
+                        <p>Average: {topicScore.averageScore.toFixed(1)}</p>
+                      </div>
+                      {/* Developer: Connect subcategory-specific metrics:
+                          - Hormonal: hormone levels, cycle tracking
+                          - Metabolic: weight, energy, blood sugar
+                          - Menstrual: cycle regularity, symptoms
+                          - Reproductive: fertility markers, concerns */}
+                    </div>
+                  ))}
+                </div>
+              </CollapsibleContent>
+            </Card>
+          </Collapsible>
+
+          {/* Spirit Details */}
+          {spiritScore && (
+            <Collapsible open={openSections.spirit} onOpenChange={() => toggleSection('spirit')}>
+              <Card className="overflow-hidden border-border">
+                <CollapsibleTrigger className="w-full">
+                  <div className="flex items-center justify-between p-4 hover:bg-muted/50 transition-colors">
+                    <h3 className="text-lg font-bold text-foreground">Spirit</h3>
+                    <ChevronDown className={`h-5 w-5 transition-transform ${openSections.spirit ? 'rotate-180' : ''}`} />
+                  </div>
+                </CollapsibleTrigger>
+                <CollapsibleContent>
+                  <div className="p-4 pt-0 space-y-2 text-sm text-foreground">
+                    <p>Assessment Sessions: {spiritScore.assessmentSessions}</p>
+                    <p>Average Score: {spiritScore.averageScore.toFixed(1)}</p>
+                    {/* Developer: Connect to your data architecture here
+                        Add metrics like: mindfulness practices, gratitude entries, connection scores, etc. */}
+                  </div>
+                </CollapsibleContent>
+              </Card>
+            </Collapsible>
+          )}
         </div>
 
         {/* Footer Note for Developer */}
-        <div className="text-sm text-muted-foreground italic border-t border-border pt-4">
-          Developer Note: This is a design mockup. Connect the data points above to your actual 
-          journaling data architecture. Use the filters from ReportFilters to fetch appropriate 
-          data from your backend API.
+        <div className="text-xs text-muted-foreground italic border-t border-border pt-4">
+          Developer Note: This is a design mockup. Connect each metric to your actual journaling data. 
+          Use the filters from ReportFilters to fetch and populate the data structure.
         </div>
       </div>
     </Card>
