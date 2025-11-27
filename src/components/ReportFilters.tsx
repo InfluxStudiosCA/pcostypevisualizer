@@ -36,38 +36,38 @@ export const ReportFilters = ({ onPreview, onDownloadPDF }: ReportFiltersProps) 
   });
 
   return (
-    <Card className="p-6 lg:p-8 bg-card border-border">
-      <div className="space-y-8">
-        <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-6">
-          <div className="flex-1 space-y-8">
+    <Card className="p-4 lg:p-6 bg-card border-border">
+      <div className="space-y-4">
+        <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4">
+          <div className="flex-1 space-y-4">
             {/* Time Period Section */}
             <div>
-              <h3 className="text-lg font-semibold text-foreground mb-4">Time Period</h3>
+              <h3 className="text-sm font-semibold text-foreground mb-2">Time Period</h3>
               <RadioGroup value={timePeriod} onValueChange={(value) => setTimePeriod(value as TimePeriod)}>
-                <div className="space-y-3">
-                  <div className="flex items-center space-x-3">
+                <div className="grid grid-cols-2 lg:grid-cols-6 gap-2">
+                  <div className="flex items-center space-x-2">
                     <RadioGroupItem value="last-week" id="last-week" />
-                    <Label htmlFor="last-week" className="font-normal cursor-pointer">The last week</Label>
+                    <Label htmlFor="last-week" className="text-xs font-normal cursor-pointer">Week</Label>
                   </div>
-                  <div className="flex items-center space-x-3">
+                  <div className="flex items-center space-x-2">
                     <RadioGroupItem value="21-days" id="21-days" />
-                    <Label htmlFor="21-days" className="font-normal cursor-pointer">21 Days</Label>
+                    <Label htmlFor="21-days" className="text-xs font-normal cursor-pointer">21 Days</Label>
                   </div>
-                  <div className="flex items-center space-x-3">
+                  <div className="flex items-center space-x-2">
                     <RadioGroupItem value="35-days" id="35-days" />
-                    <Label htmlFor="35-days" className="font-normal cursor-pointer">35 Days</Label>
+                    <Label htmlFor="35-days" className="text-xs font-normal cursor-pointer">35 Days</Label>
                   </div>
-                  <div className="flex items-center space-x-3">
+                  <div className="flex items-center space-x-2">
                     <RadioGroupItem value="last-month" id="last-month" />
-                    <Label htmlFor="last-month" className="font-normal cursor-pointer">The last month</Label>
+                    <Label htmlFor="last-month" className="text-xs font-normal cursor-pointer">Month</Label>
                   </div>
-                  <div className="flex items-center space-x-3">
+                  <div className="flex items-center space-x-2">
                     <RadioGroupItem value="last-3-months" id="last-3-months" />
-                    <Label htmlFor="last-3-months" className="font-normal cursor-pointer">The last 3 months</Label>
+                    <Label htmlFor="last-3-months" className="text-xs font-normal cursor-pointer">3 Months</Label>
                   </div>
-                  <div className="flex items-center space-x-3">
+                  <div className="flex items-center space-x-2">
                     <RadioGroupItem value="long-term" id="long-term" />
-                    <Label htmlFor="long-term" className="font-normal cursor-pointer">Long-term trends</Label>
+                    <Label htmlFor="long-term" className="text-xs font-normal cursor-pointer">Long Term</Label>
                   </div>
                 </div>
               </RadioGroup>
@@ -75,86 +75,86 @@ export const ReportFilters = ({ onPreview, onDownloadPDF }: ReportFiltersProps) 
 
             {/* Information Type Section */}
             <div>
-              <h3 className="text-lg font-semibold text-foreground mb-4">Information Type</h3>
-              <div className="space-y-3">
-                <div className="flex items-center space-x-3">
+              <h3 className="text-sm font-semibold text-foreground mb-2">Information Type</h3>
+              <div className="grid grid-cols-1 lg:grid-cols-3 gap-2">
+                <div className="flex items-center space-x-2">
                   <Checkbox 
                     id="top-level" 
                     checked={informationTypes.includes('top-level')}
                     onCheckedChange={() => handleInformationTypeToggle('top-level')}
                   />
-                  <Label htmlFor="top-level" className="font-normal cursor-pointer">Just the highlights: top level scores</Label>
+                  <Label htmlFor="top-level" className="text-xs font-normal cursor-pointer">Top Level Scores</Label>
                 </div>
-                <div className="flex items-center space-x-3">
+                <div className="flex items-center space-x-2">
                   <Checkbox 
                     id="quantitative" 
                     checked={informationTypes.includes('quantitative')}
                     onCheckedChange={() => handleInformationTypeToggle('quantitative')}
                   />
-                  <Label htmlFor="quantitative" className="font-normal cursor-pointer">The nuts and bolts: quantitative metrics</Label>
+                  <Label htmlFor="quantitative" className="text-xs font-normal cursor-pointer">Quantitative</Label>
                 </div>
-                <div className="flex items-center space-x-3">
+                <div className="flex items-center space-x-2">
                   <Checkbox 
                     id="qualitative" 
                     checked={informationTypes.includes('qualitative')}
                     onCheckedChange={() => handleInformationTypeToggle('qualitative')}
                   />
-                  <Label htmlFor="qualitative" className="font-normal cursor-pointer">The buttons and bows: qualitative data</Label>
+                  <Label htmlFor="qualitative" className="text-xs font-normal cursor-pointer">Qualitative</Label>
                 </div>
               </div>
             </div>
 
             {/* Topics Section */}
             <div>
-              <h3 className="text-lg font-semibold text-foreground mb-4">Topics</h3>
-              <div className="space-y-3">
-                <div className="flex items-center space-x-3">
+              <h3 className="text-sm font-semibold text-foreground mb-2">Topics</h3>
+              <div className="grid grid-cols-2 lg:grid-cols-6 gap-2">
+                <div className="flex items-center space-x-2">
                   <Checkbox 
                     id="mind" 
                     checked={topics.includes('mind')}
                     onCheckedChange={() => handleTopicToggle('mind')}
                   />
-                  <Label htmlFor="mind" className="font-normal cursor-pointer">Mind</Label>
+                  <Label htmlFor="mind" className="text-xs font-normal cursor-pointer">Mind</Label>
                 </div>
-                <div className="flex items-center space-x-3">
+                <div className="flex items-center space-x-2">
                   <Checkbox 
                     id="body-hormonal" 
                     checked={topics.includes('body-hormonal')}
                     onCheckedChange={() => handleTopicToggle('body-hormonal')}
                   />
-                  <Label htmlFor="body-hormonal" className="font-normal cursor-pointer">Body - Hormonal</Label>
+                  <Label htmlFor="body-hormonal" className="text-xs font-normal cursor-pointer">Hormonal</Label>
                 </div>
-                <div className="flex items-center space-x-3">
+                <div className="flex items-center space-x-2">
                   <Checkbox 
                     id="body-metabolic" 
                     checked={topics.includes('body-metabolic')}
                     onCheckedChange={() => handleTopicToggle('body-metabolic')}
                   />
-                  <Label htmlFor="body-metabolic" className="font-normal cursor-pointer">Body - Metabolic</Label>
+                  <Label htmlFor="body-metabolic" className="text-xs font-normal cursor-pointer">Metabolic</Label>
                 </div>
-                <div className="flex items-center space-x-3">
+                <div className="flex items-center space-x-2">
                   <Checkbox 
                     id="body-menstrual" 
                     checked={topics.includes('body-menstrual')}
                     onCheckedChange={() => handleTopicToggle('body-menstrual')}
                   />
-                  <Label htmlFor="body-menstrual" className="font-normal cursor-pointer">Body - Menstrual</Label>
+                  <Label htmlFor="body-menstrual" className="text-xs font-normal cursor-pointer">Menstrual</Label>
                 </div>
-                <div className="flex items-center space-x-3">
+                <div className="flex items-center space-x-2">
                   <Checkbox 
                     id="body-reproductive" 
                     checked={topics.includes('body-reproductive')}
                     onCheckedChange={() => handleTopicToggle('body-reproductive')}
                   />
-                  <Label htmlFor="body-reproductive" className="font-normal cursor-pointer">Body - Reproductive</Label>
+                  <Label htmlFor="body-reproductive" className="text-xs font-normal cursor-pointer">Reproductive</Label>
                 </div>
-                <div className="flex items-center space-x-3">
+                <div className="flex items-center space-x-2">
                   <Checkbox 
                     id="spirit" 
                     checked={topics.includes('spirit')}
                     onCheckedChange={() => handleTopicToggle('spirit')}
                   />
-                  <Label htmlFor="spirit" className="font-normal cursor-pointer">Spirit</Label>
+                  <Label htmlFor="spirit" className="text-xs font-normal cursor-pointer">Spirit</Label>
                 </div>
               </div>
             </div>
@@ -174,7 +174,7 @@ export const ReportFilters = ({ onPreview, onDownloadPDF }: ReportFiltersProps) 
         </div>
 
         {/* Action Buttons - Mobile */}
-        <div className="flex lg:hidden flex-col sm:flex-row gap-3">
+        <div className="flex lg:hidden flex-col sm:flex-row gap-2">
           <Button onClick={() => onPreview(getFilters())} className="flex-1" variant="outline">
             <Eye className="mr-2 h-4 w-4" />
             Preview Report

@@ -49,13 +49,13 @@ const Reports = () => {
       <div className="container mx-auto py-6 space-y-6">
         {/* Header with Navigation */}
         <div className="flex justify-between items-center">
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-2 lg:gap-4">
             <Link to="/">
-              <Button variant="ghost" size="icon">
-                <ArrowLeft className="h-5 w-5" />
+              <Button variant="ghost" size="icon" className="h-8 w-8 lg:h-10 lg:w-10">
+                <ArrowLeft className="h-4 w-4 lg:h-5 lg:w-5" />
               </Button>
             </Link>
-            <h1 className="text-3xl font-bold text-foreground">Health Reports</h1>
+            <h1 className="text-xl lg:text-3xl font-bold text-foreground">Health Reports</h1>
           </div>
           <ThemeToggle />
         </div>
