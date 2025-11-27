@@ -123,7 +123,7 @@ export const ReportDisplay = ({ data }: ReportDisplayProps) => {
                   </div>
                 </CollapsibleTrigger>
                 <CollapsibleContent>
-                  <div className="p-4 pt-0 space-y-2 text-sm text-foreground">
+                  <div className="p-4 pt-4 space-y-2 text-sm text-foreground">
                     <p>Assessment Sessions: {mindScore.assessmentSessions}</p>
                     <p>Average Score: {mindScore.averageScore.toFixed(1)}</p>
                     {/* Developer: Connect to your data architecture here
@@ -144,7 +144,7 @@ export const ReportDisplay = ({ data }: ReportDisplayProps) => {
                 </div>
               </CollapsibleTrigger>
               <CollapsibleContent>
-                <div className="p-4 pt-0 space-y-4">
+                <div className="p-4 pt-4 space-y-4">
                   {bodyTopics.map((topicScore) => (
                     <div key={topicScore.topic} className="border-l-2 border-primary pl-4 space-y-1">
                       <h4 className="font-semibold text-foreground">{getTopicDisplayName(topicScore.topic)}</h4>
@@ -176,7 +176,7 @@ export const ReportDisplay = ({ data }: ReportDisplayProps) => {
                   </div>
                 </CollapsibleTrigger>
                 <CollapsibleContent>
-                  <div className="p-4 pt-0 space-y-2 text-sm text-foreground">
+                  <div className="p-4 pt-4 space-y-2 text-sm text-foreground">
                     <p>Assessment Sessions: {spiritScore.assessmentSessions}</p>
                     <p>Average Score: {spiritScore.averageScore.toFixed(1)}</p>
                     {/* Developer: Connect to your data architecture here
