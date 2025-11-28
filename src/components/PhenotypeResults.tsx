@@ -3,6 +3,7 @@ import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/component
 import { ChevronDown } from 'lucide-react';
 import { PhenotypeResult } from '@/types/questionnaire';
 import { useState } from 'react';
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 
 interface PhenotypeResultsProps {
   result: PhenotypeResult;
@@ -151,9 +152,19 @@ const PhenotypeResults = ({ result }: PhenotypeResultsProps) => {
         <Card className="bg-card/30 backdrop-blur-xl border-primary/20 shadow-lg">
           <CardContent className="pt-6 space-y-3">
             <h3 className="text-lg font-semibold text-foreground">{typeContent.title}</h3>
-            <p className="text-sm text-muted-foreground">{typeContent.description}</p>
-            <p className="text-sm text-muted-foreground">{typeContent.prevalence}</p>
             <p className="text-sm text-foreground font-medium">{typeContent.assessment}</p>
+
+            <Accordion type="single" collapsible className="w-full">
+              <AccordionItem value="details" className="border-none">
+                <AccordionTrigger className="text-sm font-medium text-primary hover:no-underline py-2">
+                  Learn more about {typeContent.title.replace('What is ', '')}
+                </AccordionTrigger>
+                <AccordionContent className="space-y-2">
+                  <p className="text-sm text-muted-foreground">{typeContent.description}</p>
+                  <p className="text-sm text-muted-foreground">{typeContent.prevalence}</p>
+                </AccordionContent>
+              </AccordionItem>
+            </Accordion>
 
             {/* Acronym definitions for this type */}
             {typeContent.acronyms.length > 0 && (
@@ -188,9 +199,19 @@ const PhenotypeResults = ({ result }: PhenotypeResultsProps) => {
         <Card className="bg-card/30 backdrop-blur-xl border-primary/20 shadow-lg">
           <CardContent className="pt-6 space-y-3">
             <h3 className="text-lg font-semibold text-foreground">{subtypeContent.title}</h3>
-            <p className="text-sm text-muted-foreground">{subtypeContent.description}</p>
-            <p className="text-sm text-muted-foreground">{subtypeContent.prevalence}</p>
             <p className="text-sm text-foreground font-medium">{subtypeContent.assessment}</p>
+
+            <Accordion type="single" collapsible className="w-full">
+              <AccordionItem value="details" className="border-none">
+                <AccordionTrigger className="text-sm font-medium text-primary hover:no-underline py-2">
+                  Learn more about {subtypeContent.title.replace('What is ', '')}
+                </AccordionTrigger>
+                <AccordionContent className="space-y-2">
+                  <p className="text-sm text-muted-foreground">{subtypeContent.description}</p>
+                  <p className="text-sm text-muted-foreground">{subtypeContent.prevalence}</p>
+                </AccordionContent>
+              </AccordionItem>
+            </Accordion>
 
             {/* Acronym definitions for this subtype */}
             {subtypeContent.acronyms.length > 0 && (
@@ -223,9 +244,18 @@ const PhenotypeResults = ({ result }: PhenotypeResultsProps) => {
       {/* Disclaimer */}
       <Card className="bg-card/30 backdrop-blur-xl border-primary/20 shadow-lg">
         <CardContent className="pt-6">
-          <p className="text-xs text-muted-foreground leading-relaxed">
-            <strong>DISCLAIMER:</strong> The information herein is not intended or implied to be a substitute for professional medical advice, diagnosis or treatment. All content, including text, graphics, images and information, contained on or available through this web site is for general information purposes only. Neuraura Biotech Inc., makes no representation and assumes no responsibility for the accuracy of information contained on or available through this web site, and such information is subject to change without notice. You are encouraged to confirm any information obtained from or through this web site with other sources, and review all information regarding any medical condition or treatment with your physician. NEVER DISREGARD PROFESSIONAL MEDICAL ADVICE OR DELAY SEEKING MEDICAL TREATMENT BECAUSE OF SOMETHING YOU HAVE READ ON OR ACCESSED HEREIN. Neuraura Biotech Inc., does not recommend, endorse or make any representation about the efficacy, appropriateness or suitability of any specific tests, products, procedures, treatments, services, opinions, health care providers or other information that may be contained on or available herein.
-          </p>
+          <Accordion type="single" collapsible className="w-full">
+            <AccordionItem value="disclaimer" className="border-none">
+              <AccordionTrigger className="text-xs font-bold text-muted-foreground hover:no-underline py-0">
+                DISCLAIMER
+              </AccordionTrigger>
+              <AccordionContent>
+                <p className="text-xs text-muted-foreground leading-relaxed pt-2">
+                  The information herein is not intended or implied to be a substitute for professional medical advice, diagnosis or treatment. All content, including text, graphics, images and information, contained on or available through this web site is for general information purposes only. Neuraura Biotech Inc., makes no representation and assumes no responsibility for the accuracy of information contained on or available through this web site, and such information is subject to change without notice. You are encouraged to confirm any information obtained from or through this web site with other sources, and review all information regarding any medical condition or treatment with your physician. NEVER DISREGARD PROFESSIONAL MEDICAL ADVICE OR DELAY SEEKING MEDICAL TREATMENT BECAUSE OF SOMETHING YOU HAVE READ ON OR ACCESSED HEREIN. Neuraura Biotech Inc., does not recommend, endorse or make any representation about the efficacy, appropriateness or suitability of any specific tests, products, procedures, treatments, services, opinions, health care providers or other information that may be contained on or available herein.
+                </p>
+              </AccordionContent>
+            </AccordionItem>
+          </Accordion>
         </CardContent>
       </Card>
     </div>
