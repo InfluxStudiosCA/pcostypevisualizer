@@ -130,10 +130,10 @@ const PhenotypeResults = ({ result }: PhenotypeResultsProps) => {
         <p className="text-sm text-foreground">Keep answering questions to determine your PCOS type</p>
         
         <Card className="bg-card/30 backdrop-blur-xl border-primary/20 shadow-lg">
-          <CardContent className="pt-6">
+          <CardContent className="p-4">
             <Accordion type="single" collapsible className="w-full">
               <AccordionItem value="why-no-phenotype" className="border-none">
-                <AccordionTrigger className="text-sm font-medium text-primary hover:no-underline py-2 text-left">
+                <AccordionTrigger className="text-sm font-medium text-primary hover:no-underline py-1 text-left">
                   Why can't I see a Phenotype?
                 </AccordionTrigger>
                 <AccordionContent className="space-y-2">
