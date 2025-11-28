@@ -113,7 +113,7 @@ const QuestionnaireFlow = () => {
                   <p className="text-muted-foreground text-sm">
                     It's ok if you don't want to answer these questions or if you want to come back to them later.
                   </p>
-                  <Button variant="link" className="p-0 h-auto">
+                  <Button variant="link" className="p-0 h-auto text-left justify-start">
                     Click here to read our full privacy policy
                   </Button>
                 </CardContent>
