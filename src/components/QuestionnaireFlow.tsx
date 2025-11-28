@@ -214,7 +214,7 @@ const QuestionnaireFlow = () => {
                   />
                 </div>
 
-                <p className="text-xs text-muted-foreground text-center italic mt-4">
+                <p className="text-xs text-muted-foreground text-left italic mt-4">
                   * This is an assessment based on your responses, not a medical diagnosis. Please consult with a healthcare professional for proper diagnosis and treatment.
                 </p>
               </CardContent>
