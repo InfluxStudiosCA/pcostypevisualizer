@@ -213,7 +213,7 @@ const PhenotypeResults = ({ result }: PhenotypeResultsProps) => {
                       open={openSections[acronym]} 
                       onOpenChange={() => toggleSection(acronym)}
                     >
-                      <CollapsibleTrigger className="flex items-center justify-between w-full p-3 rounded-lg bg-background/20 hover:bg-background/30 transition-colors">
+                      <CollapsibleTrigger className="flex items-center justify-between w-full p-3 rounded-lg border border-border/40 bg-background/20 hover:bg-background/40 hover:border-primary/30 transition-all duration-200">
                         <span className="text-sm font-medium text-foreground">
                           {acronyms[acronym as keyof typeof acronyms].title}
                         </span>
@@ -265,7 +265,7 @@ const PhenotypeResults = ({ result }: PhenotypeResultsProps) => {
                       open={openSections[acronym]} 
                       onOpenChange={() => toggleSection(acronym)}
                     >
-                      <CollapsibleTrigger className="flex items-center justify-between w-full p-3 rounded-lg bg-background/20 hover:bg-background/30 transition-colors">
+                      <CollapsibleTrigger className="flex items-center justify-between w-full p-3 rounded-lg border border-border/40 bg-background/20 hover:bg-background/40 hover:border-primary/30 transition-all duration-200">
                         <span className="text-sm font-medium text-foreground">
                           {acronyms[acronym as keyof typeof acronyms].title}
                         </span>
