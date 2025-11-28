@@ -125,39 +125,75 @@ const PhenotypeResults = ({ result }: PhenotypeResultsProps) => {
 
   if (result.type === 'unclear' && result.subtype === 'unclear') {
     return (
-      <Card className="bg-card/30 backdrop-blur-xl border-primary/20 shadow-lg mt-4">
-        <CardContent className="pt-6 space-y-3">
-          <h3 className="text-lg font-semibold text-foreground">Why can't I see a Phenotype?</h3>
-          <p className="text-sm text-muted-foreground">
-            Our phenotype calculator currently relies only on the information you have provided in the Advanced Setup.
-          </p>
-          <p className="text-sm text-muted-foreground">
-            If the information you provided was not sufficient to make a determination, no Phenotype information will be displayed.
-          </p>
-          <p className="text-sm text-muted-foreground">
-            If you have not completed those questions you can go back at any time and fill them in.
-          </p>
-          <p className="text-sm text-muted-foreground">
-            We will continue to refine our algorithm and integrate information from your journalling in future.
-          </p>
-        </CardContent>
-      </Card>
+      <div className="space-y-3 mt-4">
+        <h2 className="text-xl font-semibold text-foreground">Your Results:</h2>
+        <p className="text-sm text-foreground">Keep answering questions to determine your PCOS type</p>
+        
+        <Card className="bg-card/30 backdrop-blur-xl border-primary/20 shadow-lg">
+          <CardContent className="pt-6">
+            <Accordion type="single" collapsible className="w-full">
+              <AccordionItem value="why-no-phenotype" className="border-none">
+                <AccordionTrigger className="text-sm font-medium text-primary hover:no-underline py-2 text-left">
+                  Why can't I see a Phenotype?
+                </AccordionTrigger>
+                <AccordionContent className="space-y-2">
+                  <p className="text-sm text-muted-foreground">
+                    Our phenotype calculator currently relies only on the information you have provided in the Advanced Setup.
+                  </p>
+                  <p className="text-sm text-muted-foreground">
+                    If the information you provided was not sufficient to make a determination, no Phenotype information will be displayed.
+                  </p>
+                  <p className="text-sm text-muted-foreground">
+                    If you have not completed those questions you can go back at any time and fill them in.
+                  </p>
+                  <p className="text-sm text-muted-foreground">
+                    We will continue to refine our algorithm and integrate information from your journalling in future.
+                  </p>
+                </AccordionContent>
+              </AccordionItem>
+            </Accordion>
+          </CardContent>
+        </Card>
+      </div>
     );
   }
 
+  const getTypeName = () => {
+    switch (result.type) {
+      case 'type-a': return 'Type A';
+      case 'type-b': return 'Type B';
+      case 'type-c': return 'Type C';
+      case 'type-d': return 'Type D';
+      default: return '';
+    }
+  };
+
+  const getSubtypeName = () => {
+    switch (result.subtype) {
+      case 'reproductive': return 'Reproductive Type';
+      case 'metabolic': return 'Metabolic Type';
+      case 'mixed': return 'Mixed Type';
+      default: return '';
+    }
+  };
+
   return (
     <div className="space-y-3 mt-4">
-      {/* Type Results */}
+      <h2 className="text-xl font-semibold text-foreground">Your Results:</h2>
+
+      {/* Container 1: Four Cluster Model */}
       {typeContent && (
         <Card className="bg-card/30 backdrop-blur-xl border-primary/20 shadow-lg">
           <CardContent className="pt-6 space-y-3">
-            <h3 className="text-lg font-semibold text-foreground">{typeContent.title}</h3>
-            <p className="text-sm text-foreground font-medium">{typeContent.assessment}</p>
+            <h3 className="text-lg font-semibold text-foreground">Four Cluster Model</h3>
+            <p className="text-sm text-foreground">
+              Based on your self-reported information, you appear to share similar symptoms with individuals who have <span className="font-semibold italic">{getTypeName()} PCOS</span>.
+            </p>
 
             <Accordion type="single" collapsible className="w-full">
-              <AccordionItem value="details" className="border-none">
+              <AccordionItem value="type-details" className="border-none">
                 <AccordionTrigger className="text-sm font-medium text-primary hover:no-underline py-2 text-left">
-                  Learn more about {typeContent.title.replace('What is ', '')}
+                  {typeContent.title}
                 </AccordionTrigger>
                 <AccordionContent className="space-y-2">
                   <p className="text-sm text-muted-foreground">{typeContent.description}</p>
@@ -194,17 +230,19 @@ const PhenotypeResults = ({ result }: PhenotypeResultsProps) => {
         </Card>
       )}
 
-      {/* Subtype Results */}
+      {/* Container 2: Alternative Classification */}
       {subtypeContent && (
         <Card className="bg-card/30 backdrop-blur-xl border-primary/20 shadow-lg">
           <CardContent className="pt-6 space-y-3">
-            <h3 className="text-lg font-semibold text-foreground">{subtypeContent.title}</h3>
-            <p className="text-sm text-foreground font-medium">{subtypeContent.assessment}</p>
+            <h3 className="text-lg font-semibold text-foreground">Alternative Classification</h3>
+            <p className="text-sm text-foreground">
+              Based on your self-reported information, you appear to share similar symptoms with individuals who have <span className="font-semibold italic">{getSubtypeName()} PCOS</span>.
+            </p>
 
             <Accordion type="single" collapsible className="w-full">
-              <AccordionItem value="details" className="border-none">
+              <AccordionItem value="subtype-details" className="border-none">
                 <AccordionTrigger className="text-sm font-medium text-primary hover:no-underline py-2 text-left">
-                  Learn more about {subtypeContent.title.replace('What is ', '')}
+                  {subtypeContent.title}
                 </AccordionTrigger>
                 <AccordionContent className="space-y-2">
                   <p className="text-sm text-muted-foreground">{subtypeContent.description}</p>
