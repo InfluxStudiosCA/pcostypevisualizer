@@ -1,0 +1,235 @@
+import { Card, CardContent } from '@/components/ui/card';
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
+import { ChevronDown } from 'lucide-react';
+import { PhenotypeResult } from '@/types/questionnaire';
+import { useState } from 'react';
+
+interface PhenotypeResultsProps {
+  result: PhenotypeResult;
+}
+
+const PhenotypeResults = ({ result }: PhenotypeResultsProps) => {
+  const [openSections, setOpenSections] = useState<Record<string, boolean>>({});
+
+  const toggleSection = (section: string) => {
+    setOpenSections(prev => ({ ...prev, [section]: !prev[section] }));
+  };
+
+  const getTypeContent = () => {
+    switch (result.type) {
+      case 'type-a':
+        return {
+          title: 'What is Type A?',
+          description: 'Individuals with Type A PCOS exhibit all three of the core features of PCOS: androgen excess (AE); ovulatory dysfunction (OD) and polycystic ovaries (PCO).',
+          prevalence: 'Type A is the most common type, representing about 70% of individuals with PCOS.',
+          assessment: 'Based on your self-reported information, you appear to share similar symptoms with individuals who have Type A PCOS.',
+          acronyms: ['ae', 'od', 'pco']
+        };
+      case 'type-b':
+        return {
+          title: 'What is Type B?',
+          description: 'Individuals with Type B PCOS exhibit two of the three core features of PCOS: androgen excess (AE) and ovulatory dysfunction (OD).',
+          prevalence: 'Type B is a less common type, representing about 10% of individuals with PCOS.',
+          assessment: 'Based on your self-reported information, you appear to share similar symptoms with individuals who have Type B PCOS.',
+          acronyms: ['ae', 'od']
+        };
+      case 'type-c':
+        return {
+          title: 'What is Type C?',
+          description: 'Individuals with Type C PCOS exhibit two of the three core features of PCOS: androgen excess (AE) and polycystic ovaries (PCO).',
+          prevalence: 'Type C is the second most common type, representing about 20% of individuals with PCOS.',
+          assessment: 'Based on your self-reported information, you appear to share similar symptoms with individuals who have Type C PCOS.',
+          acronyms: ['ae', 'pco']
+        };
+      case 'type-d':
+        return {
+          title: 'What is Type D?',
+          description: 'Individuals with Type D PCOS exhibit two of the three core features of PCOS: ovulatory dysfunction (OD) and polycystic ovaries (PCO).',
+          prevalence: 'Type D is a less common type, representing about 5% of individuals with PCOS.',
+          assessment: 'Based on your self-reported information, you appear to share similar symptoms with individuals who have Type D PCOS.',
+          acronyms: ['od', 'pco']
+        };
+      default:
+        return null;
+    }
+  };
+
+  const getSubtypeContent = () => {
+    switch (result.subtype) {
+      case 'reproductive':
+        return {
+          title: 'What is Reproductive Type?',
+          description: 'Individuals with Reproductive Type PCOS exhibit a subset of the core features associated with PCOS: androgen excess (AE); high levels of luteinizing hormone (LH) and high levels of sex-hormone binding globulin (SHBG).',
+          prevalence: 'Reproductive Type is a less common type, representing about 20% of individuals with PCOS.',
+          assessment: 'Based on your self-reported information, you appear to share similar symptoms with individuals who have Reproductive Type PCOS.',
+          acronyms: ['lh', 'shbg']
+        };
+      case 'metabolic':
+        return {
+          title: 'What is Metabolic Type?',
+          description: 'Individuals with Metabolic Type PCOS exhibit many of the core features associated with PCOS: androgen excess (AE); high body mass index (BMI); high circulating glucose (or hyperglycemia) and high insulin levels (or hyperinsulinemia).',
+          prevalence: 'Metabolic Type is a common type, representing about 40% of individuals with PCOS.',
+          assessment: 'Based on your self-reported information, you appear to share similar symptoms with individuals who have Metabolic Type PCOS.',
+          acronyms: ['glucose', 'insulin']
+        };
+      case 'mixed':
+        return {
+          title: 'What is Mixed Type?',
+          description: 'Individuals with Mixed Type PCOS do not fit within the typical characteristics of either the Metabolic or Reproductive Type.',
+          prevalence: 'Mixed Type is a common type, representing about 40% of individuals with PCOS.',
+          assessment: 'Based on your self-reported information, you appear to share similar symptoms with individuals who have Mixed Type PCOS.',
+          acronyms: []
+        };
+      default:
+        return null;
+    }
+  };
+
+  const getAcronymDefinitions = () => {
+    return {
+      ae: {
+        title: 'What is AE?',
+        content: 'AE stands for androgen excess (also known as hyperandrogenism), a condition where the body produces too much androgen due to abnormal functioning of the HPO axis.'
+      },
+      od: {
+        title: 'What is OD?',
+        content: 'OD stands for ovulatory dysfunction, a condition where there is a failure to ovulate on a regular monthly cycle.'
+      },
+      pco: {
+        title: 'What is PCO?',
+        content: 'PCO stands for polycystic ovaries, a condition where multiple immature follicles build up on the ovaries.'
+      },
+      lh: {
+        title: 'What is LH?',
+        content: 'LH stands for luteinizing hormone, a chemical messenger produced by the pituitary gland at the base of the brain, and responsible for helping your ovaries mature and function (alongside follicle-stimulating hormone).'
+      },
+      shbg: {
+        title: 'What is SHBG?',
+        content: 'SHBG stands for sex hormone binding globulin, a protein that helps controls the amount of "free" sex hormones such as androgens that are active in the body by binding to those hormones in the blood.'
+      },
+      glucose: {
+        title: 'What is Circulating Glucose?',
+        content: 'Circulating Glucose is a measure of the level of glucose (sugar) in your bloodstream with levels greater than 125 milligrams per deciliter (mg/dL), classified as hyperglycemia (high blood sugar).'
+      },
+      insulin: {
+        title: 'What is Insulin?',
+        content: 'Insulin is a hormone or "chemical messenger" produced by the pancreas that regulates the metabolism of sugar, fats and protein.'
+      }
+    };
+  };
+
+  const typeContent = getTypeContent();
+  const subtypeContent = getSubtypeContent();
+  const acronyms = getAcronymDefinitions();
+
+  if (result.type === 'unclear' && result.subtype === 'unclear') {
+    return (
+      <Card className="bg-card/30 backdrop-blur-xl border-primary/20 shadow-lg">
+        <CardContent className="pt-6 space-y-4">
+          <h3 className="text-lg font-semibold text-foreground">Why can't I see a Phenotype?</h3>
+          <p className="text-sm text-muted-foreground">
+            Our phenotype calculator currently relies only on the information you have provided in the Advanced Setup.
+          </p>
+          <p className="text-sm text-muted-foreground">
+            If the information you provided was not sufficient to make a determination, no Phenotype information will be displayed.
+          </p>
+          <p className="text-sm text-muted-foreground">
+            If you have not completed those questions you can go back at any time and fill them in.
+          </p>
+          <p className="text-sm text-muted-foreground">
+            We will continue to refine our algorithm and integrate information from your journalling in future.
+          </p>
+        </CardContent>
+      </Card>
+    );
+  }
+
+  return (
+    <div className="space-y-4">
+      {/* Type Results */}
+      {typeContent && (
+        <Card className="bg-card/30 backdrop-blur-xl border-primary/20 shadow-lg">
+          <CardContent className="pt-6 space-y-4">
+            <h3 className="text-lg font-semibold text-foreground">{typeContent.title}</h3>
+            <p className="text-sm text-muted-foreground">{typeContent.description}</p>
+            <p className="text-sm text-muted-foreground">{typeContent.prevalence}</p>
+            <p className="text-sm text-foreground font-medium">{typeContent.assessment}</p>
+
+            {/* Acronym definitions for this type */}
+            {typeContent.acronyms.length > 0 && (
+              <div className="space-y-2 pt-2">
+                {typeContent.acronyms.map((acronym) => (
+                  <Collapsible 
+                    key={acronym} 
+                    open={openSections[acronym]} 
+                    onOpenChange={() => toggleSection(acronym)}
+                  >
+                    <CollapsibleTrigger className="flex items-center justify-between w-full p-3 rounded-lg bg-background/20 hover:bg-background/30 transition-colors">
+                      <span className="text-sm font-medium text-foreground">
+                        {acronyms[acronym as keyof typeof acronyms].title}
+                      </span>
+                      <ChevronDown className={`w-4 h-4 transition-transform ${openSections[acronym] ? 'rotate-180' : ''}`} />
+                    </CollapsibleTrigger>
+                    <CollapsibleContent className="pt-2 px-3">
+                      <p className="text-sm text-muted-foreground">
+                        {acronyms[acronym as keyof typeof acronyms].content}
+                      </p>
+                    </CollapsibleContent>
+                  </Collapsible>
+                ))}
+              </div>
+            )}
+          </CardContent>
+        </Card>
+      )}
+
+      {/* Subtype Results */}
+      {subtypeContent && (
+        <Card className="bg-card/30 backdrop-blur-xl border-primary/20 shadow-lg">
+          <CardContent className="pt-6 space-y-4">
+            <h3 className="text-lg font-semibold text-foreground">{subtypeContent.title}</h3>
+            <p className="text-sm text-muted-foreground">{subtypeContent.description}</p>
+            <p className="text-sm text-muted-foreground">{subtypeContent.prevalence}</p>
+            <p className="text-sm text-foreground font-medium">{subtypeContent.assessment}</p>
+
+            {/* Acronym definitions for this subtype */}
+            {subtypeContent.acronyms.length > 0 && (
+              <div className="space-y-2 pt-2">
+                {subtypeContent.acronyms.map((acronym) => (
+                  <Collapsible 
+                    key={acronym} 
+                    open={openSections[acronym]} 
+                    onOpenChange={() => toggleSection(acronym)}
+                  >
+                    <CollapsibleTrigger className="flex items-center justify-between w-full p-3 rounded-lg bg-background/20 hover:bg-background/30 transition-colors">
+                      <span className="text-sm font-medium text-foreground">
+                        {acronyms[acronym as keyof typeof acronyms].title}
+                      </span>
+                      <ChevronDown className={`w-4 h-4 transition-transform ${openSections[acronym] ? 'rotate-180' : ''}`} />
+                    </CollapsibleTrigger>
+                    <CollapsibleContent className="pt-2 px-3">
+                      <p className="text-sm text-muted-foreground">
+                        {acronyms[acronym as keyof typeof acronyms].content}
+                      </p>
+                    </CollapsibleContent>
+                  </Collapsible>
+                ))}
+              </div>
+            )}
+          </CardContent>
+        </Card>
+      )}
+
+      {/* Disclaimer */}
+      <Card className="bg-card/30 backdrop-blur-xl border-primary/20 shadow-lg">
+        <CardContent className="pt-6">
+          <p className="text-xs text-muted-foreground leading-relaxed">
+            <strong>DISCLAIMER:</strong> The information herein is not intended or implied to be a substitute for professional medical advice, diagnosis or treatment. All content, including text, graphics, images and information, contained on or available through this web site is for general information purposes only. Neuraura Biotech Inc., makes no representation and assumes no responsibility for the accuracy of information contained on or available through this web site, and such information is subject to change without notice. You are encouraged to confirm any information obtained from or through this web site with other sources, and review all information regarding any medical condition or treatment with your physician. NEVER DISREGARD PROFESSIONAL MEDICAL ADVICE OR DELAY SEEKING MEDICAL TREATMENT BECAUSE OF SOMETHING YOU HAVE READ ON OR ACCESSED HEREIN. Neuraura Biotech Inc., does not recommend, endorse or make any representation about the efficacy, appropriateness or suitability of any specific tests, products, procedures, treatments, services, opinions, health care providers or other information that may be contained on or available herein.
+          </p>
+        </CardContent>
+      </Card>
+    </div>
+  );
+};
+
+export default PhenotypeResults;

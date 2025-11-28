@@ -6,6 +6,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Progress } from '@/components/ui/progress';
 import ThreeWayToggle from './ThreeWayToggle';
 import PCOSVisualizer from './PCOSVisualizer';
+import PhenotypeResults from './PhenotypeResults';
 import { questions, categoryTitles } from '@/data/questions';
 import { Answers, AnswerValue } from '@/types/questionnaire';
 import { usePhenotypeScoring } from '@/hooks/usePhenotypeScoring';
@@ -257,6 +258,9 @@ const QuestionnaireFlow = () => {
                 </div>
               </CardContent>
             </Card>
+
+            {/* Educational Content */}
+            <PhenotypeResults result={result} />
           </div>
         </div>
     </div>
