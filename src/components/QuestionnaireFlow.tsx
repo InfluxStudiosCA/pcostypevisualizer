@@ -207,7 +207,7 @@ const QuestionnaireFlow = () => {
                   </p>
                 </div>
 
-                <div className="flex justify-center py-8">
+                <div className="flex justify-center py-4 md:py-8 px-2">
                   <PCOSVisualizer 
                     metrics={metrics}
                     type={result.type}
