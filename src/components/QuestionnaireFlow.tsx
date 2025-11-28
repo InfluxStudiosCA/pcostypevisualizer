@@ -214,48 +214,9 @@ const QuestionnaireFlow = () => {
                   />
                 </div>
 
-                <div className="space-y-4">
-                  <div className="p-4 rounded-lg bg-background/20 backdrop-blur-md border border-primary/20 shadow-md">
-                    <h3 className="font-semibold text-foreground mb-2">Four-Cluster Model</h3>
-                    <p className="text-sm text-foreground">
-                      {result.type !== 'unclear' 
-                        ? getPCOSTypeLabel(result.type)
-                        : 'Keep answering questions to determine your PCOS type'}
-                    </p>
-                  </div>
-
-                  <div className="p-4 rounded-lg bg-background/20 backdrop-blur-md border border-primary/20 shadow-md">
-                    <h3 className="font-semibold text-foreground mb-2">Alternative Classification</h3>
-                    <p className="text-sm text-muted-foreground mb-1 italic">A simpler, more intuitive way to understand your PCOS type</p>
-                    <p className="text-sm text-foreground">
-                      {result.subtype !== 'unclear'
-                        ? getPCOSTypeLabel(result.subtype)
-                        : 'Complete more questions to see your alternative classification'}
-                    </p>
-                  </div>
-
-                  <div className="p-4 rounded-lg bg-background/20 backdrop-blur-md border border-primary/20 shadow-md space-y-2">
-                    <h3 className="font-semibold text-foreground mb-2">Scoring Breakdown</h3>
-                    <div className="space-y-1 text-sm">
-                      <div className="flex justify-between">
-                        <span className="text-muted-foreground">Androgen Excess (AE):</span>
-                        <span className="font-medium text-foreground uppercase">{result.criteria.ae}</span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span className="text-muted-foreground">Polycystic Ovaries (PCO):</span>
-                        <span className="font-medium text-foreground uppercase">{result.criteria.pco}</span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span className="text-muted-foreground">Ovulatory Dysfunction (OD):</span>
-                        <span className="font-medium text-foreground uppercase">{result.criteria.od}</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  <p className="text-xs text-muted-foreground text-center italic">
-                    * This is an assessment based on your responses, not a medical diagnosis. Please consult with a healthcare professional for proper diagnosis and treatment.
-                  </p>
-                </div>
+                <p className="text-xs text-muted-foreground text-center italic mt-4">
+                  * This is an assessment based on your responses, not a medical diagnosis. Please consult with a healthcare professional for proper diagnosis and treatment.
+                </p>
               </CardContent>
             </Card>
 
