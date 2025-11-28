@@ -124,8 +124,8 @@ const PhenotypeResults = ({ result }: PhenotypeResultsProps) => {
 
   if (result.type === 'unclear' && result.subtype === 'unclear') {
     return (
-      <Card className="bg-card/30 backdrop-blur-xl border-primary/20 shadow-lg">
-        <CardContent className="pt-6 space-y-4">
+      <Card className="bg-card/30 backdrop-blur-xl border-primary/20 shadow-lg mt-4">
+        <CardContent className="pt-6 space-y-3">
           <h3 className="text-lg font-semibold text-foreground">Why can't I see a Phenotype?</h3>
           <p className="text-sm text-muted-foreground">
             Our phenotype calculator currently relies only on the information you have provided in the Advanced Setup.
@@ -145,11 +145,11 @@ const PhenotypeResults = ({ result }: PhenotypeResultsProps) => {
   }
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-3 mt-4">
       {/* Type Results */}
       {typeContent && (
         <Card className="bg-card/30 backdrop-blur-xl border-primary/20 shadow-lg">
-          <CardContent className="pt-6 space-y-4">
+          <CardContent className="pt-6 space-y-3">
             <h3 className="text-lg font-semibold text-foreground">{typeContent.title}</h3>
             <p className="text-sm text-muted-foreground">{typeContent.description}</p>
             <p className="text-sm text-muted-foreground">{typeContent.prevalence}</p>
@@ -186,7 +186,7 @@ const PhenotypeResults = ({ result }: PhenotypeResultsProps) => {
       {/* Subtype Results */}
       {subtypeContent && (
         <Card className="bg-card/30 backdrop-blur-xl border-primary/20 shadow-lg">
-          <CardContent className="pt-6 space-y-4">
+          <CardContent className="pt-6 space-y-3">
             <h3 className="text-lg font-semibold text-foreground">{subtypeContent.title}</h3>
             <p className="text-sm text-muted-foreground">{subtypeContent.description}</p>
             <p className="text-sm text-muted-foreground">{subtypeContent.prevalence}</p>
