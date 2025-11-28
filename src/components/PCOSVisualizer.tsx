@@ -162,7 +162,7 @@ const PCOSVisualizer = ({ metrics, type }: PCOSVisualizerProps) => {
       width={size} 
       height={size} 
       viewBox={`0 0 ${size} ${size}`}
-      className="mx-auto"
+      className="mx-auto w-full"
       style={{ maxWidth: '100%', height: 'auto' }}
     >
       <defs>
@@ -291,7 +291,7 @@ const PCOSVisualizer = ({ metrics, type }: PCOSVisualizerProps) => {
       {labels.map((label, index) => {
         const rad = (label.angle * Math.PI) / 180;
         const abbrRadius = maxRadius + 35;
-        const textRadius = maxRadius + 85; // Increased from 70 to 85 for more spacing
+        const textRadius = maxRadius + 80;
         const abbrX = center + abbrRadius * Math.cos(rad);
         const abbrY = center + abbrRadius * Math.sin(rad);
         const textX = center + textRadius * Math.cos(rad);
@@ -303,11 +303,12 @@ const PCOSVisualizer = ({ metrics, type }: PCOSVisualizerProps) => {
             <text
               x={abbrX}
               y={abbrY}
-              fontSize="15"
+              fontSize="18"
               fill={colors.accent}
               textAnchor="middle"
               dominantBaseline="middle"
               fontWeight="700"
+              className="select-none"
             >
               {label.abbr}
             </text>
@@ -315,11 +316,12 @@ const PCOSVisualizer = ({ metrics, type }: PCOSVisualizerProps) => {
             <text
               x={textX}
               y={textY}
-              fontSize="11"
+              fontSize="13"
               fill={colors.accent}
               textAnchor="middle"
               dominantBaseline="middle"
               fontWeight="500"
+              className="select-none"
             >
               {label.text.map((line, lineIndex) => (
                 <tspan
