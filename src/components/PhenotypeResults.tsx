@@ -204,27 +204,30 @@ const PhenotypeResults = ({ result }: PhenotypeResultsProps) => {
 
             {/* Acronym definitions for this type */}
             {typeContent.acronyms.length > 0 && (
-              <div className="space-y-2 pt-2">
-                {typeContent.acronyms.map((acronym) => (
-                  <Collapsible 
-                    key={acronym} 
-                    open={openSections[acronym]} 
-                    onOpenChange={() => toggleSection(acronym)}
-                  >
-                    <CollapsibleTrigger className="flex items-center justify-between w-full p-3 rounded-lg bg-background/20 hover:bg-background/30 transition-colors">
-                      <span className="text-sm font-medium text-foreground">
-                        {acronyms[acronym as keyof typeof acronyms].title}
-                      </span>
-                      <ChevronDown className={`w-4 h-4 transition-transform ${openSections[acronym] ? 'rotate-180' : ''}`} />
-                    </CollapsibleTrigger>
-                    <CollapsibleContent className="pt-2 px-3">
-                      <p className="text-sm text-muted-foreground">
-                        {acronyms[acronym as keyof typeof acronyms].content}
-                      </p>
-                    </CollapsibleContent>
-                  </Collapsible>
-                ))}
-              </div>
+              <>
+                <div className="border-t border-border/40 my-4"></div>
+                <div className="space-y-2">
+                  {typeContent.acronyms.map((acronym) => (
+                    <Collapsible 
+                      key={acronym} 
+                      open={openSections[acronym]} 
+                      onOpenChange={() => toggleSection(acronym)}
+                    >
+                      <CollapsibleTrigger className="flex items-center justify-between w-full p-3 rounded-lg bg-background/20 hover:bg-background/30 transition-colors">
+                        <span className="text-sm font-medium text-foreground">
+                          {acronyms[acronym as keyof typeof acronyms].title}
+                        </span>
+                        <ChevronDown className={`w-4 h-4 transition-transform ${openSections[acronym] ? 'rotate-180' : ''}`} />
+                      </CollapsibleTrigger>
+                      <CollapsibleContent className="pt-2 px-3">
+                        <p className="text-sm text-muted-foreground">
+                          {acronyms[acronym as keyof typeof acronyms].content}
+                        </p>
+                      </CollapsibleContent>
+                    </Collapsible>
+                  ))}
+                </div>
+              </>
             )}
           </CardContent>
         </Card>
@@ -253,27 +256,30 @@ const PhenotypeResults = ({ result }: PhenotypeResultsProps) => {
 
             {/* Acronym definitions for this subtype */}
             {subtypeContent.acronyms.length > 0 && (
-              <div className="space-y-2 pt-2">
-                {subtypeContent.acronyms.map((acronym) => (
-                  <Collapsible 
-                    key={acronym} 
-                    open={openSections[acronym]} 
-                    onOpenChange={() => toggleSection(acronym)}
-                  >
-                    <CollapsibleTrigger className="flex items-center justify-between w-full p-3 rounded-lg bg-background/20 hover:bg-background/30 transition-colors">
-                      <span className="text-sm font-medium text-foreground">
-                        {acronyms[acronym as keyof typeof acronyms].title}
-                      </span>
-                      <ChevronDown className={`w-4 h-4 transition-transform ${openSections[acronym] ? 'rotate-180' : ''}`} />
-                    </CollapsibleTrigger>
-                    <CollapsibleContent className="pt-2 px-3">
-                      <p className="text-sm text-muted-foreground">
-                        {acronyms[acronym as keyof typeof acronyms].content}
-                      </p>
-                    </CollapsibleContent>
-                  </Collapsible>
-                ))}
-              </div>
+              <>
+                <div className="border-t border-border/40 my-4"></div>
+                <div className="space-y-2">
+                  {subtypeContent.acronyms.map((acronym) => (
+                    <Collapsible 
+                      key={acronym} 
+                      open={openSections[acronym]} 
+                      onOpenChange={() => toggleSection(acronym)}
+                    >
+                      <CollapsibleTrigger className="flex items-center justify-between w-full p-3 rounded-lg bg-background/20 hover:bg-background/30 transition-colors">
+                        <span className="text-sm font-medium text-foreground">
+                          {acronyms[acronym as keyof typeof acronyms].title}
+                        </span>
+                        <ChevronDown className={`w-4 h-4 transition-transform ${openSections[acronym] ? 'rotate-180' : ''}`} />
+                      </CollapsibleTrigger>
+                      <CollapsibleContent className="pt-2 px-3">
+                        <p className="text-sm text-muted-foreground">
+                          {acronyms[acronym as keyof typeof acronyms].content}
+                        </p>
+                      </CollapsibleContent>
+                    </Collapsible>
+                  ))}
+                </div>
+              </>
             )}
           </CardContent>
         </Card>
