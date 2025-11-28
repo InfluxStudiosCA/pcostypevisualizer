@@ -156,7 +156,7 @@ const PhenotypeResults = ({ result }: PhenotypeResultsProps) => {
 
             <Accordion type="single" collapsible className="w-full">
               <AccordionItem value="details" className="border-none">
-                <AccordionTrigger className="text-sm font-medium text-primary hover:no-underline py-2">
+                <AccordionTrigger className="text-sm font-medium text-primary hover:no-underline py-2 text-left">
                   Learn more about {typeContent.title.replace('What is ', '')}
                 </AccordionTrigger>
                 <AccordionContent className="space-y-2">
@@ -203,7 +203,7 @@ const PhenotypeResults = ({ result }: PhenotypeResultsProps) => {
 
             <Accordion type="single" collapsible className="w-full">
               <AccordionItem value="details" className="border-none">
-                <AccordionTrigger className="text-sm font-medium text-primary hover:no-underline py-2">
+                <AccordionTrigger className="text-sm font-medium text-primary hover:no-underline py-2 text-left">
                   Learn more about {subtypeContent.title.replace('What is ', '')}
                 </AccordionTrigger>
                 <AccordionContent className="space-y-2">
@@ -246,7 +246,7 @@ const PhenotypeResults = ({ result }: PhenotypeResultsProps) => {
         <CardContent className="pt-6">
           <Accordion type="single" collapsible className="w-full">
             <AccordionItem value="disclaimer" className="border-none">
-              <AccordionTrigger className="text-xs font-bold text-muted-foreground hover:no-underline py-0">
+              <AccordionTrigger className="text-xs font-bold text-muted-foreground hover:no-underline py-0 text-left">
                 DISCLAIMER
               </AccordionTrigger>
               <AccordionContent>
