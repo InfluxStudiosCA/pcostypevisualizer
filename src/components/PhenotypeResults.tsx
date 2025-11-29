@@ -154,6 +154,38 @@ const PhenotypeResults = ({ result }: PhenotypeResultsProps) => {
             </Accordion>
           </CardContent>
         </Card>
+
+        {/* Core PCOS Features Acronyms */}
+        <Card className="bg-card/30 backdrop-blur-xl border-primary/20 shadow-lg">
+          <CardContent className="pt-6 space-y-3">
+            <h3 className="text-lg font-semibold text-foreground">Core PCOS Features</h3>
+            <p className="text-sm text-muted-foreground">
+              PCOS is typically characterized by three core features: AE, OD, and PCO.
+            </p>
+            
+            <div className="space-y-2">
+              {['ae', 'od', 'pco'].map((acronym) => (
+                <Collapsible 
+                  key={acronym} 
+                  open={openSections[acronym]} 
+                  onOpenChange={() => toggleSection(acronym)}
+                >
+                  <CollapsibleTrigger className="flex items-center justify-between w-full p-3 rounded-lg border border-border/40 bg-background/20 hover:bg-background/40 hover:border-primary/30 transition-all duration-200">
+                    <span className="text-sm font-medium text-foreground">
+                      {acronyms[acronym as keyof typeof acronyms].title}
+                    </span>
+                    <ChevronDown className={`w-4 h-4 transition-transform ${openSections[acronym] ? 'rotate-180' : ''}`} />
+                  </CollapsibleTrigger>
+                  <CollapsibleContent className="pt-2 px-3">
+                    <p className="text-sm text-muted-foreground">
+                      {acronyms[acronym as keyof typeof acronyms].content}
+                    </p>
+                  </CollapsibleContent>
+                </Collapsible>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
       </div>
     );
   }
